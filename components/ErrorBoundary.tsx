@@ -1,11 +1,7 @@
 import React from "react";
 
-interface State {
-  hasError: boolean;
-}
-
 class ErrorBoundary extends React.Component {
-  state: State;
+  state: any;
   constructor(props) {
     super(props);
 
