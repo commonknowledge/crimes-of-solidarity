@@ -11,9 +11,10 @@ import countryFlagEmoji from 'country-flag-emoji';
 const coordsByCountry = coords.byCountry()
 import { toBBOX } from 'country-to-bbox'
 
-export function countryDataForCode (countryCode: string): Geography['country'][0] {
+export function countryDataForCode(countryCode: string): Geography['country'][0] {
   // Add country data
   const { country: iso3166, ...countryCoordData } = coordsByCountry.get(countryCode)
+  //console.log("country Code ", countryCode)
   const emoji = countryFlagEmoji.get(countryCode) as CountryEmoji
   const bbox = emoji.name === 'France' ? [-5.4534286, 41.2632185, 9.8678344, 51.268318] : toBBOX(emoji.name === 'South Korea' ? 'S. Korea' : emoji.name)
   return {
@@ -26,7 +27,9 @@ export function countryDataForCode (countryCode: string): Geography['country'][0
 }
 
 export const formatCountry = (country: Country) => {
+  //console.log(country)
   country.emoji = countryFlagEmoji.get(country.fields.countryCode) as CountryEmoji
+  //console.log(country.emoji)
   country.fields.Name.trim()
 
   country.summary = parseMarkdown(country.fields.Summary || '')
@@ -34,7 +37,8 @@ export const formatCountry = (country: Country) => {
   try {
     // Remove any keys not expected by the parser
     country = countrySchema.parse(country)
-  } catch(e) {
+  } catch (e) {
+    console.log("pain")
     console.error(JSON.stringify(country), e)
   }
   return country
@@ -46,11 +50,11 @@ export const countryBase = () => airtableBase()<Country['fields']>(
   env.get('AIRTABLE_TABLE_NAME_COUNTRIES').default('Countries').asString()
 )
 
-export async function getCountries (selectArgs: QueryParams<Country['fields']> = {}): Promise<Array<Country>> {
+export async function getCountries(selectArgs: QueryParams<Country['fields']> = {}): Promise<Array<Country>> {
   return new Promise((resolve, reject) => {
     const countries: Country[] = []
 
-    function finish () {
+    function finish() {
       try {
         resolve(
           countries.filter(a =>
@@ -73,11 +77,11 @@ export async function getCountries (selectArgs: QueryParams<Country['fields']> =
       ...selectArgs
     }).eachPage(function page(records, fetchNextPage) {
       try {
-        records.forEach(function(record) {
+        records.forEach(function (record) {
           countries.push(formatCountry(record._rawJson))
         });
         fetchNextPage();
-      } catch(e) {
+      } catch (e) {
         finish()
       }
     }, function done(err) {
@@ -87,7 +91,7 @@ export async function getCountries (selectArgs: QueryParams<Country['fields']> =
   })
 }
 
-export async function getCountryBy (selectArgs: QueryParams<Country['fields']> = {}, description?: string) {
+export async function getCountryBy(selectArgs: QueryParams<Country['fields']> = {}, description?: string) {
   let country: Country
   return new Promise<Country>((resolve, reject) => {
     countryBase().select({
@@ -106,20 +110,20 @@ export async function getCountryBy (selectArgs: QueryParams<Country['fields']> =
         }
         const country = records?.[0]._rawJson
         resolve(formatCountry(country))
-      } catch(e) {
+      } catch (e) {
         reject(e)
       }
     })
   })
 }
 
-export async function getCountryByCode (countryCode: string) {
+export async function getCountryByCode(countryCode: string) {
   return getCountryBy({
     filterByFormula: `{countryCode}="${countryCode.toUpperCase()}"`
   })
 }
 
-export async function getCountryBySlug (slug: string) {
+export async function getCountryBySlug(slug: string) {
   return getCountryBy({
     filterByFormula: `{Slug}="${slug.toLowerCase()}"`
   })

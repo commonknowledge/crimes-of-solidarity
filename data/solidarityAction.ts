@@ -45,6 +45,7 @@ export const formatSolidarityAction = async (record: SolidarityActionAirtableRec
   }
 
   action = solidarityActionSchema.parse(action)
+
   return action
 }
 
@@ -71,7 +72,7 @@ export const solidarityActionBase = () => airtableBase()<SolidarityActionAirtabl
 )
 
 // 
-export async function getAllSolidarityActions ({ filterByFormula = '', ...selectArgs }: QueryParams<SolidarityActionAirtableRecord['fields']> = {}): Promise<Array<SolidarityActionAirtableRecord>> {
+export async function getAllSolidarityActions({ filterByFormula = '', ...selectArgs }: QueryParams<SolidarityActionAirtableRecord['fields']> = {}): Promise<Array<SolidarityActionAirtableRecord>> {
   return new Promise((resolve, reject) => {
     const solidarityActions: SolidarityActionAirtableRecord[] = []
 
@@ -101,7 +102,7 @@ export async function getAllSolidarityActions ({ filterByFormula = '', ...select
   })
 }
 
-export async function getLiveSolidarityActions ({ filterByFormula, ...selectArgs }: QueryParams<SolidarityActionAirtableRecord['fields']> = {}): Promise<Array<SolidarityAction>> {
+export async function getLiveSolidarityActions({ filterByFormula, ...selectArgs }: QueryParams<SolidarityActionAirtableRecord['fields']> = {}): Promise<Array<SolidarityAction>> {
   const airtableRecords = await getAllSolidarityActions({
     filterByFormula: airtableFilterAND(
       'Public',
@@ -120,34 +121,34 @@ export async function getLiveSolidarityActions ({ filterByFormula, ...selectArgs
   for (const record of airtableRecords) {
     try {
       outputtedActions.push(await formatSolidarityAction(record))
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
   }
   return outputtedActions
 }
 
-export async function getLiveSolidarityActionsByCountryCode (iso2: string) {
+export async function getLiveSolidarityActionsByCountryCode(iso2: string) {
   const filterByFormula = `FIND("${iso2}", ARRAYJOIN({countryCode})) > 0`
   return getLiveSolidarityActions({ filterByFormula })
 }
 
-export async function getLiveSolidarityActionsByCompanyId (id: string) {
+export async function getLiveSolidarityActionsByCompanyId(id: string) {
   const filterByFormula = `FIND("${id}", ARRAYJOIN({Company})) > 0`
   return getLiveSolidarityActions({ filterByFormula })
 }
 
-export async function getLiveSolidarityActionsByCategoryId (id: string) {
+export async function getLiveSolidarityActionsByCategoryId(id: string) {
   const filterByFormula = `FIND("${id}", ARRAYJOIN({Category})) > 0`
   return getLiveSolidarityActions({ filterByFormula })
 }
 
-export async function getLiveSolidarityActionsByOrganisingGroupId (id: string) {
+export async function getLiveSolidarityActionsByOrganisingGroupId(id: string) {
   const filterByFormula = `FIND("${id}", ARRAYJOIN({Organising Groups})) > 0`
   return getLiveSolidarityActions({ filterByFormula })
 }
 
-export async function getSingleSolidarityAction (id: string) {
+export async function getSingleSolidarityAction(id: string) {
   const filterByFormula = `OR({slug}="${id}", RECORD_ID()="${id}")`
   const actions = await getLiveSolidarityActions({ filterByFormula, maxRecords: 1 })
   return actions[0]
