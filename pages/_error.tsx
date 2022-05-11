@@ -1,6 +1,7 @@
 function Error({ statusCode }) {
   return (
     <p>
+      <span>help me somebody {statusCode}</span>
       {statusCode
         ? `An error ${statusCode} occurred on server`
         : "An error occurred on client"}
