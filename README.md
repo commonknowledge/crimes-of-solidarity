@@ -73,4 +73,4 @@ yarn generateschema
 
 ## Deployment
 
-This repo auto-deploys to Digital Ocean.
+This repo auto-deploys to Vercel.
