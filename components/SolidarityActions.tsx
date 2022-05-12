@@ -84,7 +84,7 @@ export function SolidarityActionDialog({
       >
         {selectedAction?.fields && (
           <>
-            <Dialog.Overlay className="fixed z-10 inset-0 bg-gwOrange opacity-80" />
+            <Dialog.Overlay className="fixed z-10 inset-0 bg-hoverBlue opacity-80" />
             <div className="absolute z-20 w-full max-w-4xl top-[1%] left-1/2 transform -translate-x-1/2 py-5 p-4">
               <Dialog.Title className="hidden">
                 {selectedAction.fields.Name}
@@ -222,7 +222,7 @@ export function SolidarityActionsList({
 
           const hiddenActionsOpen = openYears.includes(yearString);
 
-          const pluralActionsCopy = pluralize("action", hiddenActions.length);
+          const pluralActionsCopy = pluralize("case", hiddenActions.length);
 
           return (
             <div key={i}>
@@ -234,7 +234,7 @@ export function SolidarityActionsList({
                   {yearString}
                 </h2>
                 <div className="text-xs font-semibold">
-                  {pluralize("action", actions.length, true)}
+                  {pluralize("case", actions.length, true)}
                 </div>
               </div>
               <div className="space-y-4">
@@ -608,9 +608,7 @@ export function SolidarityActionCountryRelatedActions({
           countryCode
         )
       }
-      metadata={
-        actionCount ? pluralize("action", actionCount, true) : undefined
-      }
+      metadata={actionCount ? pluralize("case", actionCount, true) : undefined}
     />
   );
 }

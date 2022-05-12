@@ -50,29 +50,34 @@ module.exports = {
     extend: {
       fontFamily: {
         identity: [
-          'Parabole',
+          'League Gothic',
           ...defaultTheme.fontFamily.sans
         ]
       },
       colors: {
         transparent: 'transparent',
         inherit: 'inherit',
+        activeBlue: '#C6CCFF',
+        hoverBlue: '#4B5AE7',
         gwYellow: '#EBFF00',
         gwBlue: '#3B97EC',
         gwBlueLight: '#E8EFF5',
         gwBackground: '#F8F8F8',
         gwPink: '#DD96FF',
         gwPink50: polished.rgba('#DD96FF', 0.5),
-        gwPinkLight: '#FFCAD9'  ,
+        gwPinkLight: '#FFCAD9',
         gwOrange: '#FF8038',
         gwOrange50: polished.rgba('#FF8038', 0.5),
         gwOrangeLight: '#FFC58E',
       },
       boxShadow: theme => ({
         'noglow': 'inset 0 0 0 0 #FF8038',
-        'glow': 'inset 4px 4px 20px 6px #FF8038',
+        'glow': `inset 4px 4px 20px 6px ${theme('colors.hoverBlue')}`,
+        'white': 'inset 4px 4px 20px 6px #FFffff',
         'innerGwPink': `inset 0px 0px 10px 6px ${polished.rgba('#DD96FF', 0.5)}`,
+        'innerActiveBlue': `inset 0px 0px 10px 6px ${polished.rgba(`${theme('colors.activeBlue')}`, 0.5)}`,
         'gwPink': `0px 1px 10px 5px ${theme('colors.gwPink50')}`,
+        'hoverBlue': `0px 1px 10px 5px ${theme('colors.hoverBlue')}`,
         'gwOrange': `0px 1px 10px 5px ${theme('colors.gwOrange50')}`
       }),
       maxWidth: {

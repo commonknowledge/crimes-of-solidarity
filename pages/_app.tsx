@@ -79,7 +79,7 @@ function MyApp({ Component, pageProps, headerLinks, footerLinks }) {
             {
               url:
                 projectStrings.baseUrl + `/images/game-workers-share-card.png`,
-              alt: "Game Worker Solidarity",
+              alt: "Crimes of Solidarity",
             },
           ],
         }}
