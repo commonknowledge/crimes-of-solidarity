@@ -380,7 +380,7 @@ export function SolidarityActionsTimeline({
                       <>
                         <Listbox.Button>
                           <FilterButton
-                            label="Country"
+                            label="Location"
                             selectionCount={selectedCountries.length}
                             isOpen={open}
                           />
@@ -449,7 +449,7 @@ export function SolidarityActionsTimeline({
                       <>
                         <Listbox.Button>
                           <FilterButton
-                            label="Category"
+                            label="Type"
                             selectionCount={selectedCategories.length}
                             isOpen={open}
                           />
@@ -523,7 +523,7 @@ export function SolidarityActionsTimeline({
                       <>
                         <Listbox.Button>
                           <FilterButton
-                            label="Company"
+                            label="Year"
                             selectionCount={selectedCompanies.length}
                             isOpen={open}
                           />
@@ -585,7 +585,7 @@ export function SolidarityActionsTimeline({
                       <>
                         <Listbox.Button>
                           <FilterButton
-                            label="Union"
+                            label="Citizen Status"
                             selectionCount={selectedOrganisingGroups.length}
                             isOpen={open}
                           />

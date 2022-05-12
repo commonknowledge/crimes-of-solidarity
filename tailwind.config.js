@@ -52,7 +52,11 @@ module.exports = {
         identity: [
           'League Gothic',
           ...defaultTheme.fontFamily.sans
-        ]
+        ],
+        link: [
+          'PT Mono',
+          ...defaultTheme.fontFamily.sans
+        ],
       },
       colors: {
         transparent: 'transparent',
@@ -97,10 +101,11 @@ module.exports = {
               '&:hover': {
                 color: '#2c5282',
               },
+              fontFamily: 'PT Mono',
             },
             p: {
               marginTop: theme('space.4'),
-              marginBottom: theme('space.4')
+              marginBottom: theme('space.4'),
             },
             blockquote: {
               marginTop: theme('space.5'),
