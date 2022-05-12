@@ -223,6 +223,15 @@ export function Map({
 
   const [openPopupId, setSelectedPopup] = useState<null | string>(null);
 
+  console.log(
+    env
+      .get("NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN")
+      .default(
+        "pk.eyJ1IjoiY29tbW9ua25vd2xlZGdlIiwiYSI6ImNrcHB2cnBoMDByNnUydm1uMm5qenB5bGoifQ.8ioYIcBD6YJaNvczuhLtEQ"
+      )
+      .asString()
+  );
+
   const el = (
     <ViewportContext.Provider value={viewport}>
       <div
