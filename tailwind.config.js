@@ -101,7 +101,7 @@ module.exports = {
               '&:hover': {
                 color: '#2c5282',
               },
-              fontFamily: 'PT Mono',
+              fontFamily: theme('fontFamily.link').slice().reverse(),
             },
             p: {
               marginTop: theme('space.4'),

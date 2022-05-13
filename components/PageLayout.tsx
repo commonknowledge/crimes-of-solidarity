@@ -60,7 +60,7 @@ function Header({}: {}) {
             <a
               href={link.fields.url}
               key={link.fields.url}
-              className={`order-last md:order-1${
+              className={`order-last md:order-1 font-link${
                 link.fields.url == "/submit" ? submitClasses : ""
               }`}
             >
