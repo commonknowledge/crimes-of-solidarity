@@ -1,6 +1,5 @@
 import bbox from "@turf/bbox";
 import combine from "@turf/combine";
-import dynamic from "next/dynamic";
 import ReactMapGL, {
   Layer,
   MapContext,
@@ -81,18 +80,6 @@ const CloseFullScreenSVG = (
 function createIdFromActions(actions) {
   return actions.map(({ id }) => id).join("-");
 }
-
-//const ReactMapGL = dynamic(() => import("@urbica/react-map-gl"));
-/*
-const MapboxMap = dynamic<{}>(() =>
-  import('mapbox-gl').then((mod) => mod.Map),
-  { ssr: false }
-)
-
-dynamic(() => import("mapbox-gl").then((mod) => mod.Map));
-*/
-
-//import { Map as MapboxMap } from "mapbox-gl";
 
 export default function Map({
   data,
@@ -235,8 +222,6 @@ export default function Map({
   }, [allActionsSingleCountry, nationalActionsByCountry, data]);
 
   const [openPopupId, setSelectedPopup] = useState<null | string>(null);
-
-  console.log(env.get("NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN").asString());
 
   const el = (
     <ViewportContext.Provider value={viewport}>
