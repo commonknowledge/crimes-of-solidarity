@@ -236,14 +236,7 @@ export default function Map({
 
   const [openPopupId, setSelectedPopup] = useState<null | string>(null);
 
-  console.log(
-    env
-      .get("NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN")
-      .default(
-        "pk.eyJ1IjoiY29tbW9ua25vd2xlZGdlIiwiYSI6ImNrcHB2cnBoMDByNnUydm1uMm5qenB5bGoifQ.8ioYIcBD6YJaNvczuhLtEQ"
-      )
-      .asString()
-  );
+  console.log(env.get("NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN").asString());
 
   const el = (
     <ViewportContext.Provider value={viewport}>
@@ -263,7 +256,7 @@ export default function Map({
           accessToken={env
             .get("NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN")
             .default(
-              "pk.eyJ1IjoiY29tbW9ua25vd2xlZGdlIiwiYSI6ImNrcHB2cnBoMDByNnUydm1uMm5qenB5bGoifQ.8ioYIcBD6YJaNvczuhLtEQ"
+              "pk.eyJ1IjoiY3JpbWVzb2Zzb2xpZGFyaXR5IiwiYSI6ImNsMzJ5ZTExODAyMHIzY24xYWk4eGNrMHUifQ.Va_oJkOV_6Ts3I06FzcXOg"
             )
             .asString()}
           mapStyle={env
