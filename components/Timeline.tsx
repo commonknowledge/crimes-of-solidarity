@@ -9,7 +9,7 @@ import {
 } from "../data/types";
 import Link from "next/link";
 import { projectStrings } from "../data/site";
-//import { Map } from "../components/Map";
+//import Map from "../components/Map";
 import { CumulativeMovementChart } from "../components/ActionChart";
 import { useMemo, useState, createContext, useEffect } from "react";
 import Fuse from "fuse.js";
@@ -46,7 +46,7 @@ export const FilterContext = createContext<{
   hasFilters: boolean;
 }>({ matches: [], hasFilters: false });
 
-const Map = dynamic(() => import("../components/Map"));
+const Map = dynamic(() => import("../components/Map"), { ssr: false });
 
 export function SolidarityActionsTimeline({
   actions,
