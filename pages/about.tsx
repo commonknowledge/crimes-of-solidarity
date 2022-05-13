@@ -6,7 +6,6 @@ import { GetStaticProps } from "next";
 import PageLayout from "../components/PageLayout";
 import ErrorPage from "./404";
 import { projectStrings } from "../data/site";
-import { OpenUniversityLogo } from "../components/OpenUniversityLogo";
 
 type PageProps = { article: StaticPage | null; errorMessage?: string };
 type PageParams = { slug: string[] };

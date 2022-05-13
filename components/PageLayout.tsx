@@ -33,6 +33,7 @@ function Header({}: {}) {
   const headerRef = useRef<HTMLDivElement>(null);
   const scrollY = useScrollPosition(60 /*fps*/);
   const isFloating = scrollY > (headerRef.current?.clientHeight || 100) * 0.75;
+  const submitClasses = " bg-activeBlue";
 
   return (
     <>
@@ -47,8 +48,8 @@ function Header({}: {}) {
               <Link href="/">Crimes of Solidarity</Link>
             </div>
             <p className="leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-2xl font-light flex-shrink-0">
-              Documenting legal cases against citizens offering help to
-              migrants, known as crimes of solidarity
+              Documenting legal cases against people helping irregular migrants,
+              known as crimes of solidarity and humanitarianism.
             </p>
           </div>
         </div>
@@ -59,7 +60,9 @@ function Header({}: {}) {
             <a
               href={link.fields.url}
               key={link.fields.url}
-              className="order-last md:order-1"
+              className={`order-last md:order-1${
+                link.fields.url == "/submit" ? submitClasses : ""
+              }`}
             >
               <span className="nav-link">{link.fields.label}</span>
             </a>
