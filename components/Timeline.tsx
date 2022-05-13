@@ -9,7 +9,7 @@ import {
 } from "../data/types";
 import Link from "next/link";
 import { projectStrings } from "../data/site";
-import { Map } from "../components/Map";
+//import { Map } from "../components/Map";
 import { CumulativeMovementChart } from "../components/ActionChart";
 import { useMemo, useState, createContext, useEffect } from "react";
 import Fuse from "fuse.js";
@@ -34,6 +34,7 @@ import cx from "classnames";
 import { groupBy } from "lodash";
 import { FilterButton, FilterOption } from "./Filter";
 import { memoize } from "lodash";
+import dynamic from "next/dynamic";
 
 export const FilterContext = createContext<{
   search?: string;
@@ -44,6 +45,8 @@ export const FilterContext = createContext<{
   groups?: string[];
   hasFilters: boolean;
 }>({ matches: [], hasFilters: false });
+
+const Map = dynamic(() => import("../components/Map"));
 
 export function SolidarityActionsTimeline({
   actions,

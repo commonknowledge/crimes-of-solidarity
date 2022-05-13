@@ -81,7 +81,7 @@ function createIdFromActions(actions) {
   return actions.map(({ id }) => id).join("-");
 }
 
-export function Map({
+export default function Map({
   data,
   onSelectCountry,
   ...initialViewport
