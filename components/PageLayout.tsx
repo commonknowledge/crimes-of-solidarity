@@ -45,7 +45,7 @@ function Header({}: {}) {
         <div className="content-wrapper">
           <div className="sm:flex sm:space-x-4 space-y-2 sm:space-y-0 items-top">
             <div className="leading-none text-4xl lg:text-[4vw] sm:w-1/2 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0">
-              <Link href="/">Crimes of Solidarity</Link>
+              <Link href="/">Crimes of Solidarity and Humanitarianism</Link>
             </div>
             <p className="leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-2xl font-light flex-shrink-0">
               Documenting legal cases against people helping irregular migrants,
@@ -76,7 +76,7 @@ function Header({}: {}) {
             )}
             style={{ marginLeft: "auto" }}
           >
-            <Link href="/">Crimes of Solidarity</Link>
+            <Link href="/">Crimes of Solidarity and Humanitarianism</Link>
           </div>
         </div>
       </nav>
