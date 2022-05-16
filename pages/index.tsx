@@ -7,6 +7,7 @@ import {
   OrganisingGroup,
   Type,
   Status,
+  Year,
 } from "../data/types";
 import env from "env-var";
 import { GetStaticProps } from "next";
@@ -49,6 +50,30 @@ export default function Page({
   types,
   statuses,
 }: PageProps) {
+  //construct years from actions
+  const yearsCollection = {};
+
+  actions.forEach((action) => {
+    const year: string = action.fields.Date.slice(0, 4);
+    if (yearsCollection[year]) {
+      yearsCollection[year].fields["Solidarity Actions"].push(action.id);
+    } else {
+      yearsCollection[year] = {
+        id: year,
+        fields: {
+          Name: year,
+          "Solidarity Actions": [action.id],
+        },
+      };
+    }
+  });
+
+  const years: Year[] = [];
+
+  for (let year in yearsCollection) {
+    years.push(yearsCollection[year]);
+  }
+
   return (
     <PageLayout>
       {/* <ActionsContext.Provider value={{
@@ -66,6 +91,7 @@ export default function Page({
         groups={groups}
         types={types}
         statuses={statuses}
+        years={years}
       />
       {/* </ActionsContext.Provider> */}
     </PageLayout>

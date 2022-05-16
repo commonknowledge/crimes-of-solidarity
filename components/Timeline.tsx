@@ -8,6 +8,7 @@ import {
   OrganisingGroup,
   Type,
   Status,
+  Year,
 } from "../data/types";
 import Link from "next/link";
 import { projectStrings } from "../data/site";
@@ -40,6 +41,7 @@ import { memoize } from "lodash";
 export const FilterContext = createContext<{
   search?: string;
   matches: Fuse.FuseResult<SolidarityAction>[];
+  years?: string[];
   types?: string[];
   statuses?: string[];
   categories?: string[];
@@ -55,6 +57,7 @@ export function SolidarityActionsTimeline({
   categories,
   countries,
   groups,
+  years,
   types,
   statuses,
 }: {
@@ -63,6 +66,7 @@ export function SolidarityActionsTimeline({
   categories: Category[];
   countries: Country[];
   groups: OrganisingGroup[];
+  years: Year[];
   types: Type[];
   statuses: Status[];
 }) {
@@ -90,6 +94,27 @@ export function SolidarityActionsTimeline({
         .filter(Boolean),
     [filteredCategoryNames]
   );
+
+  /**
+   * Years
+   */
+  const [filteredYears, setYears, yearsMetadata] = useURLState<string[]>({
+    key: "year",
+    emptyValue: [],
+    serialiseObjectToState: (key, urlData) =>
+      urlData ? (ensureArray(urlData) as string[]) : [],
+  });
+  const toggleYear = (year: string) => {
+    setYears((years) => toggleInArray(years, year));
+  };
+  const selectedYears = useMemo(
+    () =>
+      filteredYears
+        .map((name) => years.find((c) => c.fields.Name === name)!)
+        .filter(Boolean),
+    [filteredYears]
+  );
+
   /**
    * Types
    */
@@ -214,12 +239,14 @@ export function SolidarityActionsTimeline({
     selectedCountries.length ||
     selectedCompanies.length ||
     selectedCategories.length ||
+    selectedYears.length ||
     selectedTypes.length ||
     selectedStatuses.length
   );
 
   const clearAllFilters = () => {
     setFilterText(filterTextMetadata.emptyValue);
+    setYears(yearsMetadata.emptyValue);
     setTypes(typesMetadata.emptyValue);
     setStatuses(statusesMetadata.emptyValue);
     setCountries(countriesMetadata.emptyValue);
@@ -239,6 +266,7 @@ export function SolidarityActionsTimeline({
     () =>
       new Fuse(actions, {
         keys: [
+          "fields.Date",
           "fields.Type",
           "fields.StatusOfAccused",
           "fields.Category",
@@ -269,6 +297,7 @@ export function SolidarityActionsTimeline({
 
   const defaults = {
     updateMatches: false,
+    selectedYears,
     selectedTypes,
     selectedStatuses,
     selectedCategories,
@@ -280,6 +309,7 @@ export function SolidarityActionsTimeline({
 
   function filterActions(params: Partial<typeof defaults> = defaults) {
     const {
+      selectedYears,
       selectedTypes,
       selectedStatuses,
       selectedCategories,
@@ -289,6 +319,13 @@ export function SolidarityActionsTimeline({
       filterText,
     } = params;
     const expression: Fuse.Expression = { $and: [] };
+    if (selectedYears?.length) {
+      expression.$and!.push({
+        $or: selectedYears.map((c) => ({
+          "fields.Date": `'${c?.id}`,
+        })),
+      });
+    }
     if (selectedTypes?.length) {
       expression.$and!.push({
         $or: selectedTypes.map((c) => ({
@@ -362,6 +399,7 @@ export function SolidarityActionsTimeline({
       selectedCountries.length ||
       selectedCompanies.length ||
       selectedCategories.length ||
+      selectedYears.length ||
       selectedTypes.length ||
       selectedStatuses.length
     );
@@ -378,6 +416,7 @@ export function SolidarityActionsTimeline({
     search,
     hasFilters,
     filterText,
+    selectedYears,
     selectedTypes,
     selectedStatuses,
     selectedCategories,
@@ -422,6 +461,7 @@ export function SolidarityActionsTimeline({
         search: filterText,
         types: filteredTypes,
         statuses: filteredStatuses,
+        years: filteredYears,
         categories: filteredCategoryNames,
         countries: filteredCountrySlugs,
         companies: filteredCompanyNames,
@@ -458,38 +498,34 @@ export function SolidarityActionsTimeline({
               <div className="relative flex flex-wrap w-full">
                 <div className="filter-item">
                   <Listbox
-                    value={filteredCompanyNames}
-                    onChange={(v) => toggleCompany(v as any)}
+                    value={filteredYears}
+                    onChange={(v) => toggleYear(v as any)}
                   >
                     {({ open }) => (
                       <>
                         <Listbox.Button>
                           <FilterButton
                             label="Year"
-                            selectionCount={selectedCompanies.length}
+                            selectionCount={selectedYears.length}
                             isOpen={open}
                           />
                         </Listbox.Button>
                         <Listbox.Options>
                           <div className="listbox-dropdown">
-                            {companies.map((company) => {
-                              const isSelected = !!selectedCompanies.find(
-                                (c) => c?.id === company.id
+                            {years.map((year) => {
+                              const isSelected = !!selectedYears.find(
+                                (c) => c?.id === year.id
                               );
                               const countIfYouIncludeThis = !hasFilters
-                                ? company.fields["Solidarity Actions"]
-                                    ?.length || 0
+                                ? year.fields["Solidarity Actions"]?.length || 0
                                 : filterActionCount({
                                     ...defaults,
-                                    selectedCompanies: [
-                                      ...selectedCompanies,
-                                      company,
-                                    ],
+                                    selectedYears: [...selectedYears, year],
                                   });
                               return (
                                 <Listbox.Option
-                                  key={company.id}
-                                  value={company.fields.Name}
+                                  key={year.id}
+                                  value={year.fields.Name}
                                   disabled={
                                     !countIfYouIncludeThis && !isSelected
                                   }
@@ -501,7 +537,7 @@ export function SolidarityActionsTimeline({
                                       disabled={!countIfYouIncludeThis}
                                     >
                                       <span className="text-sm inline-block align-baseline">
-                                        {company.fields.Name}
+                                        {year.fields.Name}
                                       </span>
                                       <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                         {/* {pluralize('action', countIfYouIncludeThis, true)} */}
@@ -720,7 +756,7 @@ export function SolidarityActionsTimeline({
                 </div>
                 <div className="filter-item flex-grow">
                   <input
-                    placeholder="Search"
+                    placeholder="Search by region, state, country or type of case"
                     type="search"
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value.trimStart())}

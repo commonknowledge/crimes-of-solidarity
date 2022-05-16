@@ -323,6 +323,14 @@ export interface Category extends BaseRecord {
   summary: CopyType
 }
 
+export type Year = {
+  id: string;
+  fields: {
+    Name: string;
+    "Solidarity Actions": string[];
+  };
+};
+
 export interface Type extends BaseRecord {
   fields: {
     Name: string;
