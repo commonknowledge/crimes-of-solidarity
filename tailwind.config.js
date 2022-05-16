@@ -63,6 +63,7 @@ module.exports = {
         inherit: 'inherit',
         activeBlue: '#C6CCFF',
         hoverBlue: '#4B5AE7',
+        lightGrey: '#d2d2d2',
         gwYellow: '#EBFF00',
         gwBlue: '#3B97EC',
         gwBlueLight: '#E8EFF5',

@@ -475,7 +475,7 @@ export function SolidarityActionsTimeline({
         }}
       />
       <div className="flex flex-col lg:flex-row">
-        <section className="relative bg-white flex-1">
+        <section className="relative bg-white flex-1 border-r-2 border-lightGrey border-solid">
           <div className="p-4 lg:p-5 xl:pl-7 flex flex-col flex-nowrap md:h-screen sticky top-5 space-y-4">
             <section className="flex-grow-0">
               <div className="flex flex-wrap w-full justify-between text-sm">

@@ -54,7 +54,10 @@ function Header({}: {}) {
           </div>
         </div>
       </header>
-      <nav className="top-0 sticky z-40 py-3 bg-white" id="sticky-header">
+      <nav
+        className="top-0 sticky z-40 py-3 bg-white border-b-2 border-lightGrey border-solid"
+        id="sticky-header"
+      >
         <div className="text-sm md:text-base content-wrapper w-full flex flex-row flex-wrap justify-start -mx-1 space-x-1 md:-mx-2 md:space-x-3 items-center">
           {data?.headerLinks?.map?.((link, i) => (
             <a
@@ -95,7 +98,7 @@ function Footer({}: {}) {
   );
 
   return (
-    <footer className="mt-auto bg-white text-sm">
+    <footer className="mt-auto bg-white text-sm border-t-2 border-lightGrey border-solid">
       <div className="content-wrapper py-5 md:py-6 space-y-4 flex flex-col md:flex-row justify-between items-start align-top">
         <div className="space-y-4 flex-grow">
           <nav className="flex flex-wrap -mx-1 md:-mx-2">
