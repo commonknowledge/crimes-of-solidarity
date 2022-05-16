@@ -151,6 +151,8 @@ export interface SolidarityActionAirtableRecord extends BaseRecord {
     Name?: string;
     Location?: string;
     Summary?: string;
+    Type?: string[];
+    StatusOfAccused?: string[];
     Date?: string;
     LastModified?: string;
     Link?: string;
@@ -179,6 +181,8 @@ export interface SolidarityActionAirtableRecord extends BaseRecord {
     Name?: string;
     Location?: string;
     Summary?: string;
+    Type?: string[];
+    StatusOfAccused?: string[];
     Date?: string;
     LastModified?: string;
     Link?: string;
@@ -319,6 +323,37 @@ export interface Category extends BaseRecord {
   summary: CopyType
 }
 
+export interface Type extends BaseRecord {
+  fields: {
+    Name: string;
+    Summary?: string;
+    // 'Official Name':   string;
+    'Solidarity Actions'?: string[]
+    // 'DisplayStyle (from Solidarity Actions)': string[]
+    // 'Category (from Solidarity Actions)': string[]
+    // 'Document (from Solidarity Actions)': Attachment[]
+    // 'Date (from Solidarity Actions)': string[]
+    // 'Name (from Solidarity Actions)': string[]
+  }
+  solidarityActions?: SolidarityAction[],
+  summary: CopyType
+}
+
+export interface Status extends BaseRecord {
+  fields: {
+    Name: string;
+    Summary?: string;
+    // 'Official Name':   string;
+    'Solidarity Actions'?: string[]
+    // 'DisplayStyle (from Solidarity Actions)': string[]
+    // 'Category (from Solidarity Actions)': string[]
+    // 'Document (from Solidarity Actions)': Attachment[]
+    // 'Date (from Solidarity Actions)': string[]
+    // 'Name (from Solidarity Actions)': string[]
+  }
+  solidarityActions?: SolidarityAction[],
+  summary: CopyType
+}
 export interface MenuItem extends BaseRecord {
   fields: {
     label: string;

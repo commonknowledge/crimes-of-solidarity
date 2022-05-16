@@ -6,6 +6,8 @@ import {
   Category,
   Country,
   OrganisingGroup,
+  Type,
+  Status,
 } from "../data/types";
 import Link from "next/link";
 import { projectStrings } from "../data/site";
@@ -34,11 +36,12 @@ import cx from "classnames";
 import { groupBy } from "lodash";
 import { FilterButton, FilterOption } from "./Filter";
 import { memoize } from "lodash";
-import dynamic from "next/dynamic";
 
 export const FilterContext = createContext<{
   search?: string;
   matches: Fuse.FuseResult<SolidarityAction>[];
+  types?: string[];
+  statuses?: string[];
   categories?: string[];
   countries?: string[];
   companies?: string[];
@@ -46,20 +49,22 @@ export const FilterContext = createContext<{
   hasFilters: boolean;
 }>({ matches: [], hasFilters: false });
 
-//const Map = dynamic(() => import("../components/Map"), { ssr: false });
-
 export function SolidarityActionsTimeline({
   actions,
   companies,
   categories,
   countries,
   groups,
+  types,
+  statuses,
 }: {
   actions: SolidarityAction[];
   companies: Company[];
   categories: Category[];
   countries: Country[];
   groups: OrganisingGroup[];
+  types: Type[];
+  statuses: Status[];
 }) {
   const router = useRouter();
   const useURLState = useURLStateFactory();
@@ -84,6 +89,47 @@ export function SolidarityActionsTimeline({
         .map((name) => categories.find((c) => c.fields.Name === name)!)
         .filter(Boolean),
     [filteredCategoryNames]
+  );
+  /**
+   * Types
+   */
+  const [filteredTypes, setTypes, typesMetadata] = useURLState<string[]>({
+    key: "type",
+    emptyValue: [],
+    serialiseObjectToState: (key, urlData) =>
+      urlData ? (ensureArray(urlData) as string[]) : [],
+  });
+  const toggleType = (type: string) => {
+    setTypes((types) => toggleInArray(types, type));
+  };
+  const selectedTypes = useMemo(
+    () =>
+      filteredTypes
+        .map((name) => types.find((c) => c.fields.Name === name)!)
+        .filter(Boolean),
+    [filteredTypes]
+  );
+
+  /**
+   * Statuses
+   */
+  const [filteredStatuses, setStatuses, statusesMetadata] = useURLState<
+    string[]
+  >({
+    key: "status",
+    emptyValue: [],
+    serialiseObjectToState: (key, urlData) =>
+      urlData ? (ensureArray(urlData) as string[]) : [],
+  });
+  const toggleStatus = (status: string) => {
+    setStatuses((statuses) => toggleInArray(statuses, status));
+  };
+  const selectedStatuses = useMemo(
+    () =>
+      filteredStatuses
+        .map((name) => statuses.find((c) => c.fields.Name === name)!)
+        .filter(Boolean),
+    [filteredStatuses]
   );
 
   /**
@@ -167,11 +213,15 @@ export function SolidarityActionsTimeline({
     selectedOrganisingGroups.length ||
     selectedCountries.length ||
     selectedCompanies.length ||
-    selectedCategories.length
+    selectedCategories.length ||
+    selectedTypes.length ||
+    selectedStatuses.length
   );
 
   const clearAllFilters = () => {
     setFilterText(filterTextMetadata.emptyValue);
+    setTypes(typesMetadata.emptyValue);
+    setStatuses(statusesMetadata.emptyValue);
     setCountries(countriesMetadata.emptyValue);
     setCategories(categoryMetadata.emptyValue);
     setCompanies(companiesMetadata.emptyValue);
@@ -184,10 +234,13 @@ export function SolidarityActionsTimeline({
   const [matches, setMatches] = useState<Fuse.FuseResult<SolidarityAction>[]>(
     []
   );
+
   const search = useMemo(
     () =>
       new Fuse(actions, {
         keys: [
+          "fields.Type",
+          "fields.StatusOfAccused",
           "fields.Category",
           "fields.Company",
           "fields.Country",
@@ -196,6 +249,8 @@ export function SolidarityActionsTimeline({
           "fields.geography.location.display_name",
           "summary.plaintext",
           "fields.CategoryName",
+          "fields.TypeName",
+          "fields.StatusOfAccusedName",
           "fields.countryName",
           "fields.companyName",
           ["fields", "Organising Groups"],
@@ -214,6 +269,8 @@ export function SolidarityActionsTimeline({
 
   const defaults = {
     updateMatches: false,
+    selectedTypes,
+    selectedStatuses,
     selectedCategories,
     selectedCompanies,
     selectedCountries,
@@ -223,6 +280,8 @@ export function SolidarityActionsTimeline({
 
   function filterActions(params: Partial<typeof defaults> = defaults) {
     const {
+      selectedTypes,
+      selectedStatuses,
       selectedCategories,
       selectedCompanies,
       selectedCountries,
@@ -230,6 +289,20 @@ export function SolidarityActionsTimeline({
       filterText,
     } = params;
     const expression: Fuse.Expression = { $and: [] };
+    if (selectedTypes?.length) {
+      expression.$and!.push({
+        $or: selectedTypes.map((c) => ({
+          "fields.Type": `'${c?.id}`,
+        })),
+      });
+    }
+    if (selectedStatuses?.length) {
+      expression.$and!.push({
+        $or: selectedStatuses.map((c) => ({
+          "fields.StatusOfAccused": `'${c?.id}`,
+        })),
+      });
+    }
     if (selectedCategories?.length) {
       expression.$and!.push({
         $or: selectedCategories.map((c) => ({
@@ -262,6 +335,8 @@ export function SolidarityActionsTimeline({
           { "summary.plaintext": `'"${filterText}"` },
           { "fields.Location": `'"${filterText}"` },
           { "fields.geography.location.displayname": `'"${filterText}"` },
+          { "fields.TypeName": `'"${filterText}"` },
+          { "fields.StatusOfAccusedName": `'"${filterText}"` },
           { "fields.CategoryName": `'"${filterText}"` },
           { "fields.countryName": `'"${filterText}"` },
           { "fields.companyName": `'"${filterText}"` },
@@ -269,6 +344,7 @@ export function SolidarityActionsTimeline({
         ],
       });
     }
+
     return search.search(expression);
   }
 
@@ -285,7 +361,9 @@ export function SolidarityActionsTimeline({
       selectedOrganisingGroups.length ||
       selectedCountries.length ||
       selectedCompanies.length ||
-      selectedCategories.length
+      selectedCategories.length ||
+      selectedTypes.length ||
+      selectedStatuses.length
     );
     if (!hasFilters) return actions;
     const results = filterActions();
@@ -300,6 +378,8 @@ export function SolidarityActionsTimeline({
     search,
     hasFilters,
     filterText,
+    selectedTypes,
+    selectedStatuses,
     selectedCategories,
     selectedCompanies,
     selectedOrganisingGroups,
@@ -340,6 +420,8 @@ export function SolidarityActionsTimeline({
       value={{
         matches,
         search: filterText,
+        types: filteredTypes,
+        statuses: filteredStatuses,
         categories: filteredCategoryNames,
         countries: filteredCountrySlugs,
         companies: filteredCompanyNames,
@@ -374,6 +456,68 @@ export function SolidarityActionsTimeline({
                 ) : null}
               </div>
               <div className="relative flex flex-wrap w-full">
+                <div className="filter-item">
+                  <Listbox
+                    value={filteredCompanyNames}
+                    onChange={(v) => toggleCompany(v as any)}
+                  >
+                    {({ open }) => (
+                      <>
+                        <Listbox.Button>
+                          <FilterButton
+                            label="Year"
+                            selectionCount={selectedCompanies.length}
+                            isOpen={open}
+                          />
+                        </Listbox.Button>
+                        <Listbox.Options>
+                          <div className="listbox-dropdown">
+                            {companies.map((company) => {
+                              const isSelected = !!selectedCompanies.find(
+                                (c) => c?.id === company.id
+                              );
+                              const countIfYouIncludeThis = !hasFilters
+                                ? company.fields["Solidarity Actions"]
+                                    ?.length || 0
+                                : filterActionCount({
+                                    ...defaults,
+                                    selectedCompanies: [
+                                      ...selectedCompanies,
+                                      company,
+                                    ],
+                                  });
+                              return (
+                                <Listbox.Option
+                                  key={company.id}
+                                  value={company.fields.Name}
+                                  disabled={
+                                    !countIfYouIncludeThis && !isSelected
+                                  }
+                                >
+                                  {(args) => (
+                                    <FilterOption
+                                      {...args}
+                                      selected={isSelected}
+                                      disabled={!countIfYouIncludeThis}
+                                    >
+                                      <span className="text-sm inline-block align-baseline">
+                                        {company.fields.Name}
+                                      </span>
+                                      <span className="align-baseline inline-block text-xs ml-auto pl-3">
+                                        {/* {pluralize('action', countIfYouIncludeThis, true)} */}
+                                        {countIfYouIncludeThis}
+                                      </span>
+                                    </FilterOption>
+                                  )}
+                                </Listbox.Option>
+                              );
+                            })}
+                          </div>
+                        </Listbox.Options>
+                      </>
+                    )}
+                  </Listbox>
+                </div>
                 <div className="filter-item">
                   <Listbox
                     value={filteredCountrySlugs}
@@ -445,38 +589,34 @@ export function SolidarityActionsTimeline({
                 </div>
                 <div className="filter-item">
                   <Listbox
-                    value={filteredCategoryNames}
-                    onChange={(v) => toggleCategory(v as any)}
+                    value={filteredTypes}
+                    onChange={(v) => toggleType(v as any)}
                   >
                     {({ open }) => (
                       <>
                         <Listbox.Button>
                           <FilterButton
                             label="Type"
-                            selectionCount={selectedCategories.length}
+                            selectionCount={selectedTypes.length}
                             isOpen={open}
                           />
                         </Listbox.Button>
                         <Listbox.Options>
                           <div className="listbox-dropdown">
-                            {categories.map((category) => {
+                            {types.map((type) => {
                               const countIfYouIncludeThis = !hasFilters
-                                ? category.fields["Solidarity Actions"]
-                                    ?.length || 0
+                                ? type.fields["Solidarity Actions"]?.length || 0
                                 : filterActionCount({
                                     ...defaults,
-                                    selectedCategories: [
-                                      ...selectedCategories,
-                                      category,
-                                    ],
+                                    selectedTypes: [...selectedTypes, type],
                                   });
                               const isSelected = !!selectedCategories.find(
-                                (c) => c?.id === category.id
+                                (c) => c?.id === type.id
                               );
                               return (
                                 <Listbox.Option
-                                  key={category.id}
-                                  value={category.fields.Name}
+                                  key={type.id}
+                                  value={type.fields.Name}
                                   disabled={
                                     !countIfYouIncludeThis && !isSelected
                                   }
@@ -493,13 +633,10 @@ export function SolidarityActionsTimeline({
                                           className="hidden"
                                         >
                                           {/* This allows type-ahead on the keyboard for the dropdown */}
-                                          {category.fields.Name}
-                                        </span>
-                                        <span className="text-sm inline-block align-baseline">
-                                          {category.fields.Emoji}
+                                          {type.fields.Name}
                                         </span>
                                         <span className="text-sm inline-block align-baseline capitalize ml-1">
-                                          {category.fields.Name}
+                                          {type.fields.Name}
                                         </span>
                                         <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                           {/* {pluralize('action', countIfYouIncludeThis, true)} */}
@@ -519,101 +656,38 @@ export function SolidarityActionsTimeline({
                 </div>
                 <div className="filter-item">
                   <Listbox
-                    value={filteredCompanyNames}
-                    onChange={(v) => toggleCompany(v as any)}
+                    value={filteredStatuses}
+                    onChange={(v) => toggleStatus(v as any)}
                   >
                     {({ open }) => (
                       <>
                         <Listbox.Button>
                           <FilterButton
-                            label="Year"
-                            selectionCount={selectedCompanies.length}
+                            label="Status of Accused"
+                            selectionCount={selectedStatuses.length}
                             isOpen={open}
                           />
                         </Listbox.Button>
                         <Listbox.Options>
                           <div className="listbox-dropdown">
-                            {companies.map((company) => {
-                              const isSelected = !!selectedCompanies.find(
-                                (c) => c?.id === company.id
+                            {statuses.map((status) => {
+                              const isSelected = !!selectedStatuses.find(
+                                (c) => c?.id === status.id
                               );
                               const countIfYouIncludeThis = !hasFilters
-                                ? company.fields["Solidarity Actions"]
-                                    ?.length || 0
-                                : filterActionCount({
-                                    ...defaults,
-                                    selectedCompanies: [
-                                      ...selectedCompanies,
-                                      company,
-                                    ],
-                                  });
-                              return (
-                                <Listbox.Option
-                                  key={company.id}
-                                  value={company.fields.Name}
-                                  disabled={
-                                    !countIfYouIncludeThis && !isSelected
-                                  }
-                                >
-                                  {(args) => (
-                                    <FilterOption
-                                      {...args}
-                                      selected={isSelected}
-                                      disabled={!countIfYouIncludeThis}
-                                    >
-                                      <span className="text-sm inline-block align-baseline">
-                                        {company.fields.Name}
-                                      </span>
-                                      <span className="align-baseline inline-block text-xs ml-auto pl-3">
-                                        {/* {pluralize('action', countIfYouIncludeThis, true)} */}
-                                        {countIfYouIncludeThis}
-                                      </span>
-                                    </FilterOption>
-                                  )}
-                                </Listbox.Option>
-                              );
-                            })}
-                          </div>
-                        </Listbox.Options>
-                      </>
-                    )}
-                  </Listbox>
-                </div>
-                <div className="filter-item">
-                  <Listbox
-                    value={filteredOrganisingGroupNames}
-                    onChange={(v) => toggleOrganisingGroup(v as any)}
-                  >
-                    {({ open }) => (
-                      <>
-                        <Listbox.Button>
-                          <FilterButton
-                            label="Citizen Status"
-                            selectionCount={selectedOrganisingGroups.length}
-                            isOpen={open}
-                          />
-                        </Listbox.Button>
-                        <Listbox.Options>
-                          <div className="listbox-dropdown">
-                            {groups.map((group) => {
-                              const isSelected =
-                                !!selectedOrganisingGroups.find(
-                                  (c) => c?.id === group.id
-                                );
-                              const countIfYouIncludeThis = !hasFilters
-                                ? group.fields["Solidarity Actions"]?.length ||
+                                ? status.fields["Solidarity Actions"]?.length ||
                                   0
                                 : filterActionCount({
                                     ...defaults,
-                                    selectedOrganisingGroups: [
-                                      ...selectedOrganisingGroups,
-                                      group,
+                                    selectedStatuses: [
+                                      ...selectedStatuses,
+                                      status,
                                     ],
                                   });
                               return (
                                 <Listbox.Option
-                                  key={group.id}
-                                  value={group.fields.Name}
+                                  key={status.id}
+                                  value={status.fields.Name}
                                   disabled={
                                     !countIfYouIncludeThis && !isSelected
                                   }
@@ -626,7 +700,7 @@ export function SolidarityActionsTimeline({
                                         disabled={!countIfYouIncludeThis}
                                       >
                                         <span className="text-sm inline-block align-baseline">
-                                          {group.fields.Name}
+                                          {status.fields.Name}
                                         </span>
                                         <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                           {/* {pluralize('action', countIfYouIncludeThis, true)} */}

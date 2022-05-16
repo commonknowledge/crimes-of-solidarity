@@ -246,6 +246,26 @@ export const categorySchema = baseRecordSchema.extend({
   summary: copyTypeSchema,
 });
 
+export const typeSchema = baseRecordSchema.extend({
+  fields: z.object({
+    Name: z.string(),
+    Summary: z.string().optional(),
+    "Solidarity Actions": z.array(z.string()).optional(),
+  }),
+  solidarityActions: z.array(solidarityActionSchema).optional(),
+  summary: copyTypeSchema,
+});
+
+export const statusSchema = baseRecordSchema.extend({
+  fields: z.object({
+    Name: z.string(),
+    Summary: z.string().optional(),
+    "Solidarity Actions": z.array(z.string()).optional(),
+  }),
+  solidarityActions: z.array(solidarityActionSchema).optional(),
+  summary: copyTypeSchema,
+});
+
 export const countrySchema = baseRecordSchema.extend({
   emoji: countryEmojiSchema,
   fields: z.object({

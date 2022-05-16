@@ -64,7 +64,7 @@ export function actionToFeature(action: SolidarityAction): GeoJSON.Feature<GeoJS
   }
 }
 
-const fields: Array<keyof SolidarityActionAirtableRecord['fields']> = ['hasPassedValidation', 'slug', 'companyName', 'organisingGroupName', 'Organising Groups', 'Company', 'Country', 'LocationData', 'Document', 'countryCode', 'countryName', 'countrySlug', 'LastModified', 'DisplayStyle', 'Name', 'Location', 'Summary', 'Date', 'Link', 'Public', 'Category', 'CategoryName', 'CategoryEmoji']
+const fields: Array<keyof SolidarityActionAirtableRecord['fields']> = ['hasPassedValidation', 'slug', 'companyName', 'organisingGroupName', 'Organising Groups', 'Company', 'Country', 'LocationData', 'Document', 'countryCode', 'countryName', 'countrySlug', 'LastModified', 'DisplayStyle', 'Name', 'Location', 'Summary', 'Date', 'Link', 'Public', 'Type', 'StatusOfAccused', 'Category', 'CategoryName', 'CategoryEmoji']
 
 // @ts-ignore
 export const solidarityActionBase = () => airtableBase()<SolidarityActionAirtableRecord['fields']>(
@@ -140,6 +140,16 @@ export async function getLiveSolidarityActionsByCompanyId(id: string) {
 
 export async function getLiveSolidarityActionsByCategoryId(id: string) {
   const filterByFormula = `FIND("${id}", ARRAYJOIN({Category})) > 0`
+  return getLiveSolidarityActions({ filterByFormula })
+}
+
+export async function getLiveSolidarityActionsByTypeId(id: string) {
+  const filterByFormula = `FIND("${id}", ARRAYJOIN({Type})) > 0`
+  return getLiveSolidarityActions({ filterByFormula })
+}
+
+export async function getLiveSolidarityActionsByStatusId(id: string) {
+  const filterByFormula = `FIND("${id}", ARRAYJOIN({StatusOfAccused})) > 0`
   return getLiveSolidarityActions({ filterByFormula })
 }
 
