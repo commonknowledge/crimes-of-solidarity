@@ -111,11 +111,13 @@ function Footer({}: {}) {
                 key={link.fields.url}
                 className={link.fields.url == "/submit" ? submitClasses : ""}
               >
-                <span className="nav-link font-mono">{link.fields.label}</span>
+                <span className="nav-link font-mono text-darkGrey">
+                  {link.fields.label}
+                </span>
               </a>
             ))}
           </nav>
-          <div className="inline self-center justify-self-end font-mono mt-0">
+          <div className="inline self-center justify-self-end font-mono mt-0 text-darkGrey">
             Site by{" "}
             <a className="link" href="https://commonknowledge.coop">
               Common Knowledge
