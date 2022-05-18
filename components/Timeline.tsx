@@ -498,14 +498,14 @@ export function SolidarityActionsTimeline({
                 ) : null}
               </div>
               <div className="relative flex flex-wrap w-full">
-                <div className="filter-item">
+                <div className="filter-item flex-grow">
                   <Listbox
                     value={filteredYears}
                     onChange={(v) => toggleYear(v as any)}
                   >
                     {({ open }) => (
                       <>
-                        <Listbox.Button>
+                        <Listbox.Button className={"w-full"}>
                           <FilterButton
                             label="Year"
                             selectionCount={selectedYears.length}
@@ -556,14 +556,14 @@ export function SolidarityActionsTimeline({
                     )}
                   </Listbox>
                 </div>
-                <div className="filter-item">
+                <div className="filter-item flex-grow">
                   <Listbox
                     value={filteredCountrySlugs}
                     onChange={(v) => toggleCountry(v as any)}
                   >
                     {({ open }) => (
                       <>
-                        <Listbox.Button>
+                        <Listbox.Button className={"w-full"}>
                           <FilterButton
                             label="Location"
                             selectionCount={selectedCountries.length}
@@ -625,14 +625,14 @@ export function SolidarityActionsTimeline({
                     )}
                   </Listbox>
                 </div>
-                <div className="filter-item">
+                <div className="filter-item flex-grow">
                   <Listbox
                     value={filteredTypes}
                     onChange={(v) => toggleType(v as any)}
                   >
                     {({ open }) => (
                       <>
-                        <Listbox.Button>
+                        <Listbox.Button className={"w-full"}>
                           <FilterButton
                             label="Type"
                             selectionCount={selectedTypes.length}
@@ -760,7 +760,7 @@ export function SolidarityActionsTimeline({
               <div className="search-box flex-grow items-center w-full">
                 <img
                   src="/images/icon-search.svg"
-                  className="h-2 absolute pl-1"
+                  className="h-2 absolute px-1"
                 />
                 <input
                   placeholder={
