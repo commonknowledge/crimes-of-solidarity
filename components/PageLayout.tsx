@@ -103,25 +103,23 @@ function Footer({}: {}) {
   return (
     <footer className="mt-auto bg-white text-sm border-t-2 border-lightGrey border-solid">
       <div className="content-wrapper py-5 md:py-6 space-y-4 flex flex-col md:flex-row justify-between items-start align-top">
-        <div className="space-y-4 flex-grow">
-          <nav className="flex flex-wrap -mx-1 md:-mx-2">
+        <div className="space-y-4 flex justify-between flex-grow">
+          <nav className="inline-flex flex-wrap -mx-1 md:-mx-2">
             {data?.footerLinks?.map?.((link, i) => (
               <a
                 href={link.fields.url}
                 key={link.fields.url}
                 className={link.fields.url == "/submit" ? submitClasses : ""}
               >
-                <span className="nav-link">{link.fields.label}</span>
+                <span className="nav-link font-mono">{link.fields.label}</span>
               </a>
             ))}
           </nav>
-          <div className="md:flex space-y-4 md:space-y-0 md:space-x-5">
-            <div>
-              Site by{" "}
-              <a className="link" href="https://commonknowledge.coop">
-                Common Knowledge
-              </a>
-            </div>
+          <div className="inline self-center justify-self-end font-mono mt-0">
+            Site by{" "}
+            <a className="link" href="https://commonknowledge.coop">
+              Common Knowledge
+            </a>
           </div>
         </div>
       </div>

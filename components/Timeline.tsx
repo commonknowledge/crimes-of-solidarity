@@ -939,7 +939,8 @@ export function SolidarityActionsTimeline({
 
           <article>
             <p className="font-bold font-serif text-lg">
-              Can you contribute more information to Crime of Solidarity?
+              Can you contribute more information to Crimes of Solidarity and
+              Humanitarianism?
             </p>
 
             <div className="space-x-2">
