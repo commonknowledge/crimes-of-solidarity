@@ -226,7 +226,7 @@ export default function Map({
   const el = (
     <ViewportContext.Provider value={viewport}>
       <div
-        className="w-full h-full relative rounded-xl overflow-hidden"
+        className="w-full h-full relative overflow-hidden"
         style={{
           height: "100%",
           width: "100%",
@@ -249,7 +249,6 @@ export default function Map({
             .default("mapbox://styles/kingmob/cl32vqsy1000b14o6rvs2frnk")
             .asString()}
           onViewportChange={updateViewport}
-          className="rounded-xl"
           ref={mapRef}
           viewportChangeMethod="flyTo"
         >

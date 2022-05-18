@@ -228,12 +228,15 @@ export function SolidarityActionsList({
             <div key={i}>
               <div className="flex flex-row justify-between items-center pb-3">
                 <h2
-                  className={cx(mini ? "text-lg" : "text-2xl", "font-semibold")}
+                  className={cx(
+                    mini ? "text-lg" : "text-2xl",
+                    "font-bold font-serif"
+                  )}
                   id={yearString}
                 >
                   {yearString}
                 </h2>
-                <div className="text-xs font-semibold">
+                <div className="text-lg font-bold font-serif">
                   {pluralize("case", actions.length, true)}
                 </div>
               </div>
@@ -273,22 +276,21 @@ export function SolidarityActionsList({
               </div>
               {hasHiddenActions && hiddenActionsOpen === false && (
                 <button
-                  className="p-3 mt-3 font-semibold text-sm flex items-center"
+                  className="p-3 mt-3 font-normal font-mono text-sm flex items-center"
                   onClick={() =>
                     setOpenYears(openYears.concat(openYears, [yearString]))
                   }
                 >
                   <>
                     <span className="pr-1">
-                      Load {hiddenActions.length} more {pluralActionsCopy}
+                      + Load {hiddenActions.length} more {pluralActionsCopy}
                     </span>
-                    {DownArrow}
                   </>
                 </button>
               )}
               {hasHiddenActions && hiddenActionsOpen && (
                 <button
-                  className="p-3 mt-3 font-semibold text-sm flex items-center"
+                  className="p-3 mt-3 font-normal font-mono text-sm flex items-center"
                   onClick={() =>
                     setOpenYears(
                       openYears.filter((openYear) => openYear !== yearString)
@@ -297,9 +299,8 @@ export function SolidarityActionsList({
                 >
                   <>
                     <span className="pr-1">
-                      Hide {hiddenActions.length} {pluralActionsCopy}
+                      - Hide {hiddenActions.length} {pluralActionsCopy}
                     </span>
-                    {UpArrow}
                   </>
                 </button>
               )}
@@ -347,12 +348,12 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
   }
 
   return (
-    <article className={cx("bg-white rounded-xl p-4 text-sm glowable")}>
+    <article className={cx("bg-white p-4 text-sm glowable")}>
       <ActionMetadata data={data} />
       <div>
         {isFeatured ? (
           <>
-            <h2 className="text-3xl leading-tight font-semibold max-w-3xl mt-3">
+            <h2 className="text-3xl leading-tight font-bold font-serif max-w-3xl mt-3">
               <Highlighter
                 highlightClassName="bg-gwYellow"
                 searchWords={[search || ""]}
@@ -373,7 +374,7 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
             )}
           </>
         ) : (
-          <h3 className="text-2xl leading-tight font-semibold max-w-3xl mt-3">
+          <h3 className="text-2xl leading-tight font-bold font-serif max-w-3xl mt-3">
             <Highlighter
               highlightClassName="bg-gwYellow"
               searchWords={[search || ""]}
@@ -384,10 +385,13 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
         )}
         <div className="flex flex-row mt-3 flex-wrap">
           {data.fields.Link && (
-            <a href={data.fields.Link} className="block my-1 mr-2">
-              <Emoji symbol="🔗" label="Link" className="align-baseline" />
+            <a
+              href={data.fields.Link}
+              className="inline-flex items-center my-1 mr-2 bg-lightBlue p-1"
+            >
+              <img src="/images/icon-link.svg" className="pr-2 h-3.5" />
               &nbsp;
-              <span className="align-baseline underline text-inherit">
+              <span className="align-baseline text-inherit text-sm">
                 {new URL(data.fields.Link).hostname}
               </span>
             </a>
@@ -435,25 +439,25 @@ export function DocumentLink({
 export function ActionMetadata({ data }: { data: SolidarityAction }) {
   return (
     <div className="flex flex-wrap tracking-tight">
-      <span className="font-semibold pr-3">
+      <span className="font-bold pr-3 font-mono text-darkGrey">
         <DateTime date={data.fields.Date} />
       </span>
       {data.fields.Location ? (
-        <span className="pr-1">{data.fields.Location}</span>
+        <span className="pr-1 font-mono text-darkGrey">
+          {data.fields.Location}
+        </span>
       ) : null}
       {data.geography?.country.map((country, i) => (
-        <span className="pr-3" key={`${country.iso3166}-${i}`}>
-          <Emoji
-            symbol={country.emoji.emoji}
-            label={`Flag of ${country.name}`}
-            className="pr-1"
-          />
+        <span
+          className="pr-3 font-mono text-darkGrey"
+          key={`${country.iso3166}-${i}`}
+        >
           <span>{country.name}</span>
         </span>
       ))}
-      {data.fields?.Category?.map((c, i) => (
-        <span className="capitalize block pr-3" key={c}>
-          {data.fields.CategoryEmoji?.[i]} {data.fields.CategoryName?.[i]}
+      {data.fields?.Type?.map((c, i) => (
+        <span className="block pr-3 font-mono text-darkGrey" key={c}>
+          {data.fields.TypeName}
         </span>
       ))}
     </div>
@@ -487,13 +491,17 @@ export function SolidarityActionCard({
           description: data.summary.plaintext,
         }}
       />
-      <article className={cx("space-y-2px rounded-xl overflow-hidden")}>
+      <article className={cx("space-y-2px overflow-hidden")}>
         <div className="p-4 md:px-8 bg-white">
           <div className="text-sm">
             <ActionMetadata data={data} />
           </div>
           <div className="pb-4" />
-          <h3 className={cx("text-3xl leading-tight font-semibold max-w-3xl")}>
+          <h3
+            className={cx(
+              "text-3xl leading-tight font-bold font-serif max-w-3xl"
+            )}
+          >
             {data.fields.Name}
           </h3>
           {data.fields.Summary && (

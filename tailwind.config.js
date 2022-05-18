@@ -49,20 +49,27 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        identity: [
+        'identity': [
           'League Gothic',
           ...defaultTheme.fontFamily.sans
         ],
-        link: [
+        'mono': [
           'PT Mono',
-          ...defaultTheme.fontFamily.sans
+          ...defaultTheme.fontFamily.mono
+        ],
+        'serif': [
+          'PT Serif',
+          ...defaultTheme.fontFamily.serif
         ],
       },
       colors: {
         transparent: 'transparent',
         inherit: 'inherit',
+        lightBlue: '#d2dcf8',
         activeBlue: '#C6CCFF',
         hoverBlue: '#4B5AE7',
+        darkGrey: "#434343",
+        midGrey: "#b2b2b2",
         lightGrey: '#d2d2d2',
         gwYellow: '#EBFF00',
         gwBlue: '#3B97EC',
@@ -98,11 +105,11 @@ module.exports = {
             h4: { color: 'inherit' },
             h5: { color: 'inherit' },
             a: {
-              color: '#3182ce',
+              fontFamily: theme('fontFamily.link'),
+              color: '#434343',
               '&:hover': {
-                color: '#2c5282',
+                color: theme('darkGrey'),
               },
-              fontFamily: theme('fontFamily.link').slice().reverse(),
             },
             p: {
               marginTop: theme('space.4'),

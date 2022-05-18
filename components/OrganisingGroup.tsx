@@ -54,7 +54,7 @@ export const OrganisingGroupDialog = ({
             <div className="absolute z-20 w-full max-w-4xl top-[15%] left-1/2 transform -translate-x-1/2 py-5 p-4">
               <Dialog.Title className="hidden">{data.fields.Name}</Dialog.Title>
               <Dialog.Description className="hidden">
-                {data.fields.IsUnion ? "Union" : "Organising group"} in{" "}
+                {data.fields.IsUnion ? "Union" : "Related group"} in{" "}
                 {stringifyArray(...(data.fields?.countryName || []))}
               </Dialog.Description>
               <button

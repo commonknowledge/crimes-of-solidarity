@@ -21,6 +21,8 @@ export default function PageLayout({ children }: { children: any }) {
   );
 }
 
+const submitClasses = " bg-lightBlue";
+
 function Header({}: {}) {
   const { data } = useSWR<{ headerLinks: MenuItem[] }>(
     "/api/links?placement=Header",
@@ -33,7 +35,6 @@ function Header({}: {}) {
   const headerRef = useRef<HTMLDivElement>(null);
   const scrollY = useScrollPosition(60 /*fps*/);
   const isFloating = scrollY > (headerRef.current?.clientHeight || 100) * 0.75;
-  const submitClasses = " bg-activeBlue";
 
   return (
     <>
@@ -47,7 +48,7 @@ function Header({}: {}) {
             <div className="leading-none text-4xl lg:text-[4vw] sm:w-1/2 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0">
               <Link href="/">Crimes of Solidarity and Humanitarianism</Link>
             </div>
-            <p className="leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-2xl font-light flex-shrink-0">
+            <p className="leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-2xl font-bold font-serif flex-shrink-0">
               Documenting legal cases against people helping irregular migrants,
               known as crimes of solidarity and humanitarianism.
             </p>
@@ -63,11 +64,13 @@ function Header({}: {}) {
             <a
               href={link.fields.url}
               key={link.fields.url}
-              className={`order-last md:order-1 font-link${
+              className={`order-last md:order-1 no-underline${
                 link.fields.url == "/submit" ? submitClasses : ""
               }`}
             >
-              <span className="nav-link">{link.fields.label}</span>
+              <span className="nav-link text-darkGrey tracking-tighter font-mono ">
+                {link.fields.label}
+              </span>
             </a>
           ))}
           <div
@@ -103,7 +106,11 @@ function Footer({}: {}) {
         <div className="space-y-4 flex-grow">
           <nav className="flex flex-wrap -mx-1 md:-mx-2">
             {data?.footerLinks?.map?.((link, i) => (
-              <a href={link.fields.url} key={link.fields.url}>
+              <a
+                href={link.fields.url}
+                key={link.fields.url}
+                className={link.fields.url == "/submit" ? submitClasses : ""}
+              >
                 <span className="nav-link">{link.fields.label}</span>
               </a>
             ))}

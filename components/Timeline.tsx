@@ -479,15 +479,17 @@ export function SolidarityActionsTimeline({
           <div className="p-4 lg:p-5 xl:pl-7 flex flex-col flex-nowrap md:h-screen sticky top-5 space-y-4">
             <section className="flex-grow-0">
               <div className="flex flex-wrap w-full justify-between text-sm">
-                <h3 className="text-base text-left left-0 font-semibold mb-2">
+                <h3 className="text-base text-left text-lg left-0 font-bold mb-2 font-serif">
                   Filter by
                 </h3>
                 {hasFilters ? (
                   <div
-                    className="cursor-pointer rounded-lg inline-block hover:text-white"
+                    className="cursor-pointer rounded-lg inline-block hover:text-lightGrey"
                     onClick={clearAllFilters}
                   >
-                    <span className="underline">Clear all filters</span>
+                    <span className="font-mono text-darkGrey">
+                      Clear all filters
+                    </span>
                     &nbsp;
                     <span className="inline-block transform rotate-45 text-base">
                       +
@@ -690,14 +692,14 @@ export function SolidarityActionsTimeline({
                     )}
                   </Listbox>
                 </div>
-                <div className="filter-item">
+                <div className="filter-item flex-grow">
                   <Listbox
                     value={filteredStatuses}
                     onChange={(v) => toggleStatus(v as any)}
                   >
                     {({ open }) => (
                       <>
-                        <Listbox.Button>
+                        <Listbox.Button className={"w-full"}>
                           <FilterButton
                             label="Status of Accused"
                             selectionCount={selectedStatuses.length}
@@ -705,7 +707,7 @@ export function SolidarityActionsTimeline({
                           />
                         </Listbox.Button>
                         <Listbox.Options>
-                          <div className="listbox-dropdown">
+                          <div className="listbox-dropdown w-full">
                             {statuses.map((status) => {
                               const isSelected = !!selectedStatuses.find(
                                 (c) => c?.id === status.id
@@ -754,15 +756,21 @@ export function SolidarityActionsTimeline({
                     )}
                   </Listbox>
                 </div>
-                <div className="filter-item flex-grow">
-                  <input
-                    placeholder="Search by region, state, country or type of case"
-                    type="search"
-                    value={filterText}
-                    onChange={(e) => setFilterText(e.target.value.trimStart())}
-                    className="rounded-lg border-2 border-gray-300 px-3 py-2 text-sm font-semibold w-full hover:shadow-innerActiveBlue hover:border-2 hover:border-white focus:border-white transition duration-75"
-                  />
-                </div>
+              </div>
+              <div className="search-box flex-grow items-center w-full">
+                <img
+                  src="/images/icon-search.svg"
+                  className="h-2 absolute pl-1"
+                />
+                <input
+                  placeholder={
+                    "Search by region, state, country or type of case"
+                  }
+                  type="search"
+                  value={filterText}
+                  onChange={(e) => setFilterText(e.target.value.trimStart())}
+                  className="px-4 py-2 border-2 border-gray-300 text-sm font-normal font-mono w-full"
+                />
               </div>
             </section>
             <section className="w-full flex-grow h-[40vh] md:h-auto">
@@ -930,13 +938,20 @@ export function SolidarityActionsTimeline({
           />
 
           <article>
-            <p>Can you contribute more info about worker organising?</p>
+            <p className="font-bold font-serif text-lg">
+              Can you contribute more information to Crime of Solidarity?
+            </p>
 
             <div className="space-x-2">
               <Link href="/submit">
-                <span className="button">Submit a solidarity action</span>
+                <span className="button font-mono text-darkGrey hover:text-lightGrey">
+                  Submit case
+                </span>
               </Link>
-              <a className="button" href={`mailto:${projectStrings.email}`}>
+              <a
+                className="button font-mono text-darkGrey hover:text-lightGrey"
+                href={`mailto:${projectStrings.email}`}
+              >
                 Contact us
               </a>
             </div>

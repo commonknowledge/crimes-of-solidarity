@@ -19,16 +19,24 @@ body {
 */
 
 @font-face {
-  font-family: "League Gothic";
-  src: url("/fonts/LeagueGothic-Regular.ttf") format("truetype");
+  font-family: "PT Mono";
+  src: url("/fonts/PTMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "PT Mono";
-  src: url("/fonts/PTMono-Regular.ttf") format("truetype");
+  font-family: "PT Serif";
+  src: url("/fonts/PTSerif-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "League Gothic";
+  src: url("/fonts/LeagueGothic-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -54,7 +62,7 @@ body {
   }
 
   .button {
-    @apply cursor-pointer inline-block px-2 py-1 border-2 border-white rounded-xl hover:bg-white hover:text-white transition duration-75 mt-2;
+    @apply cursor-pointer inline-block px-2 py-1 border-2 border-lightGrey hover:bg-white transition duration-75 mt-2;
   }
 
   .content-wrapper {
@@ -62,7 +70,15 @@ body {
   }
 
   .filter-item {
-    @apply inline-block mr-2 mb-2;
+    @apply inline-block mr-2 mb-2 text-left;
+
+    &:last-child {
+      @apply mr-0 mb-0;
+    }
+  }
+
+  .search-box {
+    @apply inline-flex mr-2 mb-2 p-0;
 
     &:last-child {
       @apply mr-0 mb-0;
@@ -89,6 +105,6 @@ body {
   }
 
   .nav-link {
-    @apply font-semibold underline transition-all duration-75 bg-transparent hover:bg-white hover:shadow-innerActiveBlue rounded-lg inline-block px-3 -mx-2 md:-mx-1 py-2;
+    @apply font-normal transition-all duration-75 bg-transparent hover:bg-white hover:shadow-innerActiveBlue inline-block px-3 -mx-2 md:-mx-1 py-2;
   }
 }

@@ -152,6 +152,7 @@ export interface SolidarityActionAirtableRecord extends BaseRecord {
     Location?: string;
     Summary?: string;
     Type?: string[];
+    TypeName?: string;
     StatusOfAccused?: string[];
     Date?: string;
     LastModified?: string;
@@ -182,6 +183,7 @@ export interface SolidarityActionAirtableRecord extends BaseRecord {
     Location?: string;
     Summary?: string;
     Type?: string[];
+    TypeName?: string;
     StatusOfAccused?: string[];
     Date?: string;
     LastModified?: string;
@@ -215,6 +217,7 @@ export type SolidarityAction = SolidarityActionAirtableRecord & {
     Public: true;
     LastModified: string;
     hasPassedValidation: true,
+    TypeName: string;
   }
 }
 

@@ -20,12 +20,12 @@ export function FilterButton({
           : "hover:shadow-innerActiveBlue",
         hasSelections ? "border-white" : "",
         !isOpen && hasSelections
-          ? "shadow-innerActiveBlue"
+          ? "text-black border-black"
           : isOpen && hasSelections
-          ? "border-white"
+          ? "text-black border-black"
           : // Untouched state
             "hover:border-white active:bg-white",
-        "rounded-lg text-black border-2 px-3 py-2 text-sm font-semibold w-full relative"
+        "text-midGrey border-2 px-3 py-2 text-sm font-normal font-mono w-full relative"
       )}
     >
       {!selectionCount ? label : pluralize(label, selectionCount, true)}
@@ -33,7 +33,7 @@ export function FilterButton({
       <span
         className={cx(
           isOpen ? "rotate-180" : "",
-          "transform text-gray-800 inline-block text-lg leading-none"
+          "transform text-midGrey inline-block text-lg leading-none"
         )}
       >
         ▾
