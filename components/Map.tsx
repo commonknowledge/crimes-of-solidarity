@@ -8,7 +8,6 @@ import ReactMapGL, {
   Source,
 } from "@urbica/react-map-gl";
 import Cluster from "@urbica/react-map-gl-cluster";
-import Emoji from "a11y-react-emoji";
 import cx from "classnames";
 import { max, median, min } from "d3-array";
 import { scalePow } from "d3-scale";
@@ -273,14 +272,7 @@ export default function Map({
                     }
                     latitude={actionsUnlocated[0].geography.country[0].latitude}
                     actions={actionsUnlocated}
-                    label={
-                      <Emoji
-                        symbol={
-                          actionsUnlocated[0].geography.country[0].emoji.emoji
-                        }
-                        label={actionsUnlocated[0].geography.country[0].name}
-                      />
-                    }
+                    label={actionsUnlocated[0].geography.country[0].name}
                     isSelected={clusterMarkerId === openPopupId}
                     setSelected={setSelectedPopup}
                   />
@@ -505,11 +497,6 @@ const CountryPopup = memo(
           }
         >
           <div className="text-base">
-            <Emoji
-              symbol={exampleAction.geography.country[0].emoji?.emoji}
-              label="flag"
-            />
-            &nbsp;
             {exampleAction.geography.country[0].name}
           </div>
           <div className="text-xl">
@@ -562,11 +549,6 @@ const MapMarker = ({
       >
         <div className="space-x-1 text-center">
           <div className="transition duration-250 text-xs bg-white text-black inline capitalize font-bold tracking-tight  px-1 rounded-xl pointer-events-none">
-            {!!data.fields?.CategoryEmoji?.length && (
-              <span className="text-sm pr-1">
-                <Emoji symbol={data.fields.CategoryEmoji?.[0]} />
-              </span>
-            )}
             {format(new Date(data.fields.Date), "MMM ''yy")}
           </div>
         </div>
@@ -627,18 +609,7 @@ const ClusterMarker = ({
       >
         <div className="text-center items-center inline-flex flex-row transition duration-250 bg-gwYellow text-black font-bold tracking-tight px-1 rounded-xl leading-none">
           <span className="text-sm align-middle pr-1 leading-none">
-            {label ||
-              actions
-                .reduce((categories, action) => {
-                  return Array.from(
-                    new Set(
-                      categories.concat(action.fields?.CategoryEmoji || [])
-                    )
-                  );
-                }, [] as string[])
-                .map((emoji) => (
-                  <Emoji symbol={emoji} key={emoji} className="leading-none" />
-                ))}
+            {label}
           </span>
           <span className="align-middle text-sm">{actions.length}</span>
         </div>
@@ -656,7 +627,7 @@ const ClusterMarker = ({
                       { shallow: true }
                     );
                   }}
-                  className="hover:bg-hoverBlueLight transition duration-75 p-1 rounded-md"
+                  className="hover:border-activeBlue transition duration-75 p-1 rounded-md"
                 >
                   <ActionMetadata data={action} />
                   <div className="text-base -mt-1">{action.fields.Name}</div>

@@ -1,5 +1,4 @@
 import { Dialog, Transition } from "@headlessui/react";
-import Emoji from "a11y-react-emoji";
 import cx from "classnames";
 import { format, getYear } from "date-fns";
 import Fuse from "fuse.js";
@@ -227,13 +226,7 @@ export function SolidarityActionsList({
           return (
             <div key={i}>
               <div className="flex flex-row justify-between items-center pb-3">
-                <h2
-                  className={cx(
-                    mini ? "text-lg" : "text-2xl",
-                    "font-bold font-serif"
-                  )}
-                  id={yearString}
-                >
+                <h2 className="text-lg font-bold font-serif" id={yearString}>
                   {yearString}
                 </h2>
                 <div className="text-lg font-bold font-serif">
@@ -282,7 +275,7 @@ export function SolidarityActionsList({
                   }
                 >
                   <>
-                    <span className="pr-1">
+                    <span className="pr-1 hover-blue">
                       + Load {hiddenActions.length} more {pluralActionsCopy}
                     </span>
                   </>
@@ -348,7 +341,7 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
   }
 
   return (
-    <article className={cx("bg-white p-4 text-sm glowable")}>
+    <article className={cx("bg-white p-4 text-sm glowable hover-blue-border")}>
       <ActionMetadata data={data} />
       <div>
         {isFeatured ? (
@@ -362,7 +355,7 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
               />
             </h2>
             {data.fields.Summary && (
-              <div className="w-full pt-4 text-base">
+              <div className="w-full pt-4 text-base font-serif">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: !search
@@ -391,7 +384,7 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
             >
               <img src="/images/icon-link.svg" className="pr-2 h-3.5" />
               &nbsp;
-              <span className="align-baseline text-inherit text-sm">
+              <span className="align-baseline text-inherit text-sm font-mono">
                 {new URL(data.fields.Link).hostname}
               </span>
             </a>
@@ -415,8 +408,7 @@ export function DocumentLink({
   return (
     <a href={doc.url} className="block my-1 mr-2">
       <span className={cx(withPreview && "block")}>
-        <Emoji symbol="📑" label="File attachment" className="align-baseline" />
-        &nbsp;
+        <img src="/images/icon-file.svg" />
         <span className="align-baseline underline text-inherit">
           {doc.filename}
         </span>
@@ -506,14 +498,13 @@ export function SolidarityActionCard({
           </h3>
           {data.fields.Summary && (
             <div
-              className={"w-full pt-4 text-lg font-light"}
+              className={"w-full pt-4 text-lg font-serif"}
               dangerouslySetInnerHTML={{ __html: data.summary.html }}
             />
           )}
           <div className="flex flex-row space-x-4 mt-3 text-sm">
             {data.fields.Link && (
               <a href={data.fields.Link} className="block my-1">
-                <Emoji symbol="🔗" label="Link" className="align-baseline" />
                 &nbsp;
                 <span className="align-baseline underline text-inherit">
                   {new URL(data.fields.Link).hostname}
@@ -532,35 +523,36 @@ export function SolidarityActionCard({
             </div>
           </div>
         )}
-        <div className="p-4 md:px-8 bg-white">
-          Have more info about this action?{" "}
+        <div className="p-4 md:px-8 bg-white font-serif">
+          Have more info about this case{" "}
           <a className="link" href={`mailto:${projectStrings.email}`}>
             Let us know &rarr;
           </a>
         </div>
         {withContext && (
-          <div className="grid gap-[2px] grid-cols-2">
+          <div className="grid gap-[2px] grid-cols-2 font-serif">
             {data.fields.countryCode?.map((code) => (
               <div className="p-4 md:px-8 bg-white" key={code}>
                 <SolidarityActionCountryRelatedActions countryCode={code} />
               </div>
             ))}
             {data.fields.CategoryName?.map((categoryName, i) => (
-              <div className="p-4 md:px-8 bg-white" key={categoryName}>
+              <div
+                className="p-4 md:px-8 bg-white font-serif"
+                key={categoryName}
+              >
                 <SolidarityActionRelatedActions
                   subtitle="Category"
                   url={`/?category=${categoryName}`}
-                  name={
-                    <span className="capitalize">
-                      <Emoji symbol={data.fields.CategoryEmoji![i]} />{" "}
-                      {categoryName}
-                    </span>
-                  }
+                  name={<span className="capitalize">{categoryName}</span>}
                 />
               </div>
             ))}
             {data.fields["Organising Groups"]?.map((organisingGroupId, i) => (
-              <div className="p-4 md:px-8 bg-white" key={organisingGroupId}>
+              <div
+                className="p-4 md:px-8 bg-white font-serif"
+                key={organisingGroupId}
+              >
                 <SolidarityActionRelatedActions
                   subtitle="Organising group"
                   url={`/group/${organisingGroupId}`}
@@ -606,16 +598,7 @@ export function SolidarityActionCountryRelatedActions({
     <SolidarityActionRelatedActions
       subtitle={"Country"}
       url={`/?country=${data?.fields?.Slug}`}
-      name={
-        data?.fields ? (
-          <span>
-            <Emoji symbol={data?.emoji?.emoji} label="flag" />{" "}
-            {data?.fields.Name}
-          </span>
-        ) : (
-          countryCode
-        )
-      }
+      name={data?.fields ? <span>{data?.fields.Name}</span> : countryCode}
       metadata={actionCount ? pluralize("case", actionCount, true) : undefined}
     />
   );

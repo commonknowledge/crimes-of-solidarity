@@ -38,7 +38,6 @@ export const formatCountry = (country: Country) => {
     // Remove any keys not expected by the parser
     country = countrySchema.parse(country)
   } catch (e) {
-    console.log("pain")
     console.error(JSON.stringify(country), e)
   }
   return country

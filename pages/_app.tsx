@@ -4,7 +4,6 @@ import App from "next/app";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SWRConfig } from "swr";
-import { KonamiCode } from "../components/KonamiCode";
 import { getMenuItems } from "../data/menuItem";
 import { useCanonicalURL } from "../data/seo";
 import { projectStrings } from "../data/site";
@@ -90,7 +89,6 @@ function MyApp({ Component, pageProps, headerLinks, footerLinks }) {
         }}
       />
       <div>
-        <KonamiCode />
         <ErrorBoundary>
           <Component {...pageProps} />
         </ErrorBoundary>

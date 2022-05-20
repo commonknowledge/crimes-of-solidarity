@@ -6,7 +6,7 @@ This repository is for a website backed by a database of events that can be free
 
 Where possible, we'll also interview and record oral histories with participants of these movements to produce a living resource that can help support and inspire more organising in the games industry.
 
-Do you have any information to share with us that we can add to the timeline? [Get in touch!](mailto:hello@gameworkersolidarity.com)
+Do you have any information to share with us that we can add to the timeline? [Get in touch!](mailto:l.mayblin@sheffield.ac.uk)
 
 # Technical documentation
 

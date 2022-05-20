@@ -17,7 +17,7 @@ export function FilterButton({
         !isOpen && !hasSelections ? "border-gray-300" : "",
         isOpen
           ? "border-b-0 rounded-b-none bg-white z-50 border-white"
-          : "hover:shadow-innerActiveBlue",
+          : "hover:border-activeBlue border-solid border-1",
         hasSelections ? "border-white" : "",
         !isOpen && hasSelections
           ? "text-black border-black"

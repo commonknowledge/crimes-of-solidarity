@@ -1,7 +1,6 @@
 import { SolidarityActionsList } from "../components/SolidarityActions";
 import {
   SolidarityAction,
-  CountryEmoji,
   Company,
   Category,
   Country,
@@ -16,7 +15,6 @@ import Map from "../components/Map";
 import { CumulativeMovementChart } from "../components/ActionChart";
 import { useMemo, useState, createContext, useEffect } from "react";
 import Fuse from "fuse.js";
-import Emoji from "a11y-react-emoji";
 import pluralize from "pluralize";
 import { useURLStateFactory } from "../utils/state";
 import { ensureArray, toggleInArray, stringifyArray } from "../utils/string";
@@ -605,9 +603,6 @@ export function SolidarityActionsTimeline({
                                         {/* This allows type-ahead on the keyboard for the dropdown */}
                                         {country.fields.Name}
                                       </span>
-                                      <span>
-                                        <Emoji symbol={country.emoji.emoji} />
-                                      </span>
                                       <span className="text-sm ml-1 inline-block">
                                         {country.fields.Name}
                                       </span>
@@ -760,7 +755,7 @@ export function SolidarityActionsTimeline({
               <div className="search-box flex-grow items-center w-full">
                 <img
                   src="/images/icon-search.svg"
-                  className="h-2 absolute px-1"
+                  className="h-2 absolute pl-3 pr-2"
                 />
                 <input
                   placeholder={
@@ -769,7 +764,7 @@ export function SolidarityActionsTimeline({
                   type="search"
                   value={filterText}
                   onChange={(e) => setFilterText(e.target.value.trimStart())}
-                  className="px-4 py-2 border-2 border-gray-300 text-sm font-normal font-mono w-full"
+                  className="px-30px py-2 border-2 border-gray-300 text-sm font-normal font-mono w-full"
                 />
               </div>
             </section>
@@ -824,18 +819,6 @@ export function SolidarityActionsTimeline({
                             key={union.id}
                           >
                             <li className="space-x-1">
-                              <Emoji
-                                symbol={
-                                  categories.find(
-                                    (c) => c.fields.Name === "union"
-                                  )?.fields.Emoji || "🤝"
-                                }
-                                label={
-                                  union.fields.IsUnion
-                                    ? "Union"
-                                    : "Organising Group"
-                                }
-                              />
                               <span className="link">{union.fields.Name}</span>
                               <span>
                                 <span className="inline-block ml-2 text-gray-400 rounded-full text-xs">

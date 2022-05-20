@@ -1,7 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { OrganisingGroup } from "../data/types";
 import { stringifyArray } from "../utils/string";
-import Emoji from "a11y-react-emoji";
 import pluralize from "pluralize";
 import { useRouter } from "next/dist/client/router";
 import { NextSeo } from "next-seo";
@@ -95,7 +94,9 @@ export const OrganisingGroupCard = ({
   return (
     <>
       <article
-        className={cx("space-y-2px rounded-xl overflow-hidden glowable")}
+        className={cx(
+          "space-y-2px rounded-xl overflow-hidden glowable hover-blue-border"
+        )}
       >
         <div className={cx(withPadding && "md:px-8", "p-4 bg-white")}>
           <div className="text-sm">
@@ -105,11 +106,6 @@ export const OrganisingGroupCard = ({
               </span>
               {data.geography?.country.map((country) => (
                 <span className="pr-3" key={country.iso3166}>
-                  <Emoji
-                    symbol={country.emoji.emoji}
-                    label={`Flag of ${country.name}`}
-                    className="pr-1"
-                  />
                   <span>{country.name}</span>
                 </span>
               ))}
@@ -157,11 +153,7 @@ export const OrganisingGroupCard = ({
             <div className="flex flex-row space-x-4 mt-1 text-sm">
               {data.fields.Website && (
                 <a href={data.fields.Website} className="block my-1">
-                  <Emoji
-                    symbol="🔗"
-                    label="Website"
-                    className="align-baseline"
-                  />
+                  <img src="images/icon-link.svg" alt="link icon" />
                   &nbsp;
                   <span className="align-baseline underline text-inherit">
                     {new URL(data.fields.Website).hostname}

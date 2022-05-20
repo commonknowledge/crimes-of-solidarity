@@ -14,23 +14,23 @@ export const formatCategory = (category: Category) => {
   try {
     // Remove any keys not expected by the parser
     category = categorySchema.parse(category)
-  } catch(e) {
+  } catch (e) {
     console.error(JSON.stringify(category), e)
   }
   return category
 }
 
-const fields: Array<keyof Category['fields']> = ['Name', 'Summary', 'Emoji', 'Solidarity Actions']
+const fields: Array<keyof Category['fields']> = ['Name', 'Summary', 'Solidarity Actions']
 
 export const categoryBase = () => airtableBase()<Category['fields']>(
   env.get('AIRTABLE_TABLE_NAME_CATEGORIES').default('Categories').asString()
 )
 
-export async function getCategories (selectArgs: QueryParams<Category['fields']> = {}): Promise<Array<Category>> {
+export async function getCategories(selectArgs: QueryParams<Category['fields']> = {}): Promise<Array<Category>> {
   return new Promise((resolve, reject) => {
     const categories: Category[] = []
 
-    function finish () {
+    function finish() {
       try {
         resolve(
           categories.filter(a =>
@@ -53,11 +53,11 @@ export async function getCategories (selectArgs: QueryParams<Category['fields']>
       ...selectArgs
     }).eachPage(function page(records, fetchNextPage) {
       try {
-        records.forEach(function(record) {
+        records.forEach(function (record) {
           categories.push(formatCategory(record._rawJson))
         });
         fetchNextPage();
-      } catch(e) {
+      } catch (e) {
         finish()
       }
     }, function done(err) {
@@ -67,7 +67,7 @@ export async function getCategories (selectArgs: QueryParams<Category['fields']>
   })
 }
 
-export async function getCategoryBy (selectArgs: QueryParams<Category['fields']> = {}, description?: string) {
+export async function getCategoryBy(selectArgs: QueryParams<Category['fields']> = {}, description?: string) {
   return new Promise<Category>((resolve, reject) => {
     categoryBase().select({
       // sort: [
@@ -85,14 +85,14 @@ export async function getCategoryBy (selectArgs: QueryParams<Category['fields']>
         }
         const category = records?.[0]._rawJson
         resolve(formatCategory(category))
-      } catch(e) {
+      } catch (e) {
         reject(e)
       }
     })
   })
 }
 
-export async function getCategoryByName (name: string) {
+export async function getCategoryByName(name: string) {
   return getCategoryBy({
     filterByFormula: `{Name}="${name}"`
   })

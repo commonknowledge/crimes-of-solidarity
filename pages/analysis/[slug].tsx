@@ -59,7 +59,7 @@ export default function Page({
                   {article.fields.Title}
                 </h1>
                 {article.fields.ByLine && (
-                  <p className="text-xl font-light">{article.fields.ByLine}</p>
+                  <p className="text-xl font-serif">{article.fields.ByLine}</p>
                 )}
               </div>
               <div className="rounded-lg shadow-white overflow-hidden">
@@ -82,7 +82,7 @@ export default function Page({
                   {article.fields.Title}
                 </h1>
                 {article.fields.ByLine && (
-                  <p className="text-xl font-light">{article.fields.ByLine}</p>
+                  <p className="text-xl font-serif">{article.fields.ByLine}</p>
                 )}
               </div>
             </>
@@ -90,7 +90,7 @@ export default function Page({
         </header>
         <div className="space-y-4">
           <div
-            className="prose text-lg"
+            className="prose text-lg font-serif"
             dangerouslySetInnerHTML={{ __html: article.body.html }}
           />
         </div>

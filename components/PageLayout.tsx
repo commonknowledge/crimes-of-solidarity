@@ -1,4 +1,3 @@
-import Emoji from "a11y-react-emoji";
 import Link from "next/link";
 import { StaticPage, MenuItem } from "../data/types";
 import qs from "query-string";
@@ -44,8 +43,8 @@ function Header({}: {}) {
         id="static-header"
       >
         <div className="content-wrapper">
-          <div className="sm:flex sm:space-x-4 space-y-2 sm:space-y-0 items-top">
-            <div className="leading-none text-4xl lg:text-[4vw] sm:w-1/2 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0">
+          <div className="flex justify-between sm:space-x-4 space-y-2 sm:space-y-0 items-top">
+            <div className="leading-none text-4xl lg:text-[4vw] w-2/5 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0 ">
               <Link href="/">Crimes of Solidarity and Humanitarianism</Link>
             </div>
             <p className="leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-2xl font-bold font-serif flex-shrink-0">
@@ -78,7 +77,7 @@ function Header({}: {}) {
               isFloating
                 ? "opacity-100 max-w-6xl translate-x-0"
                 : "opacity-0 translate-x-2",
-              "hidden md:block transform ml-auto duration-200 transition-all leading-none text-xl lg:text-2xl font-identity cursor-pointer hover:text-activeBlue flex-shrink-0 order-1 md:order-last"
+              "hidden md:block transform ml-auto duration-200 transition-all leading-none text-xl lg:text-4xl font-identity cursor-pointer hover:text-activeBlue flex-shrink-0 order-1 md:order-last"
             )}
             style={{ marginLeft: "auto" }}
           >
@@ -109,7 +108,10 @@ function Footer({}: {}) {
               <a
                 href={link.fields.url}
                 key={link.fields.url}
-                className={link.fields.url == "/submit" ? submitClasses : ""}
+                className={
+                  "mx-30px" +
+                  (link.fields.url == "/submit" ? submitClasses : "")
+                }
               >
                 <span className="nav-link font-mono text-darkGrey">
                   {link.fields.label}

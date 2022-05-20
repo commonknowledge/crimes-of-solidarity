@@ -9,7 +9,7 @@ export function BlogPostThumbnail({ blog: b }: { blog: BlogPost }) {
     <Link href={`/analysis/${b.fields.Slug}`} key={b.fields.Slug}>
       <article
         key={b.id}
-        className="bg-white rounded-lg p-4 space-y-3 glowable cursor-pointer"
+        className="bg-white rounded-lg p-4 space-y-3 glowable hover-blue-border cursor-pointer"
       >
         {!!b.fields.Image?.[0] && (
           <div className="rounded-lg shadow-white">
@@ -26,10 +26,10 @@ export function BlogPostThumbnail({ blog: b }: { blog: BlogPost }) {
         <header className="space-x-4 text-xs font-semibold">
           <DateTime date={b.fields.Date} />
         </header>
-        <h2 className="font-semibold text-3xl leading-tight">
+        <h2 className="font-semibold font-serif text-3xl leading-tight">
           {b.fields.Title}
         </h2>
-        <p className="text-lg font-light">{b.fields.Summary}</p>
+        <p className="text-lg font-serif">{b.fields.Summary}</p>
       </article>
     </Link>
   );

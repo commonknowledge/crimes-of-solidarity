@@ -31,7 +31,7 @@ export default function Page({ article, errorMessage }: PageProps) {
           </h1>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
             <section
-              className="prose md:col-span-2"
+              className="prose md:col-span-2 font-serif"
               dangerouslySetInnerHTML={{ __html: article.body.html }}
             />
             <div className="grid lg:grid-cols-2 lg:col-span-2 gap-6">
