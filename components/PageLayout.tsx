@@ -63,11 +63,13 @@ function Header({}: {}) {
             <a
               href={link.fields.url}
               key={link.fields.url}
-              className={`order-last md:order-1 no-underline${
-                link.fields.url == "/submit" ? submitClasses : ""
-              }`}
+              className={`order-last md:order-1 no-underline`}
             >
-              <span className="nav-link text-darkGrey tracking-tighter font-mono ">
+              <span
+                className={`nav-link text-darkGrey tracking-tighter font-mono ${
+                  link.fields.url == "/submit" ? submitClasses : ""
+                }`}
+              >
                 {link.fields.label}
               </span>
             </a>
@@ -108,12 +110,13 @@ function Footer({}: {}) {
               <a
                 href={link.fields.url}
                 key={link.fields.url}
-                className={
-                  "mx-30px" +
-                  (link.fields.url == "/submit" ? submitClasses : "")
-                }
+                className={"mx-30px"}
               >
-                <span className="nav-link font-mono text-darkGrey">
+                <span
+                  className={`nav-link font-mono text-darkGrey ${
+                    link.fields.url == "/submit" ? submitClasses : ""
+                  }`}
+                >
                   {link.fields.label}
                 </span>
               </a>

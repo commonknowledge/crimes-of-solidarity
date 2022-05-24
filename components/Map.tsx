@@ -121,8 +121,8 @@ export default function Map({
       .exponent(0.5)
       .domain([min(domain), median(domain), max(domain)] as number[])
       .range([
-        theme`colors.gwBlue`,
         theme`colors.white`,
+        theme`colors.activeBlue`,
         theme`colors.hoverBlue`,
       ] as any);
 
@@ -409,7 +409,7 @@ const CountryLayer = memo(
               "fill-color": [
                 "coalesce",
                 ["get", ["get", "iso_3166_1"], ["literal", countryCounts]],
-                theme`colors.gray.200`,
+                theme`colors.inactiveBlue`,
               ],
             },
           }}
@@ -607,11 +607,16 @@ const ClusterMarker = ({
         }}
         className="relative"
       >
-        <div className="text-center items-center inline-flex flex-row transition duration-250 bg-gwYellow text-black font-bold tracking-tight px-1 rounded-xl leading-none">
-          <span className="text-sm align-middle pr-1 leading-none">
+        <div className="w-7 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none">
+          <img src="/images/map-marker.svg" className="absolute" />
+          {/*
+           <span className="text-sm align-middle pr-1 leading-none">
             {label}
           </span>
-          <span className="align-middle text-sm">{actions.length}</span>
+          */}
+          <span className="align-middle text-sm absolute px-2">
+            {actions.length}
+          </span>
         </div>
         {isSelected && (
           <div className="bg-white p-1 rounded-xl max-w-md overflow-hidden truncate divide-y absolute top-100 left-0">

@@ -66,8 +66,10 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         inherit: 'inherit',
+        white: '#ffffff',
         lightBlue: '#d2dcf8',
         activeBlue: '#C6CCFF',
+        inactiveBlue: '#E6E8FF',
         hoverBlue: '#4B5AE7',
         darkGrey: "#434343",
         midGrey: "#b2b2b2",

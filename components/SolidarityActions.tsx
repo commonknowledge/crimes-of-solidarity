@@ -93,7 +93,7 @@ export function SolidarityActionDialog({
               </Dialog.Description>
               <button
                 type="button"
-                className="mb-3 rounded-xl px-2 py-1 border-box bg-white"
+                className="mb-3 px-2 py-1 border-box bg-white"
                 onClick={onClose}
               >
                 &larr; Back
@@ -224,7 +224,7 @@ export function SolidarityActionsList({
           const pluralActionsCopy = pluralize("case", hiddenActions.length);
 
           return (
-            <div key={i}>
+            <div key={i} className="mb-60px">
               <div className="flex flex-row justify-between items-center pb-3">
                 <h2 className="text-lg font-bold font-serif" id={yearString}>
                   {yearString}
@@ -291,7 +291,7 @@ export function SolidarityActionsList({
                   }
                 >
                   <>
-                    <span className="pr-1">
+                    <span className="pr-1 hover-blue">
                       - Hide {hiddenActions.length} {pluralActionsCopy}
                     </span>
                   </>

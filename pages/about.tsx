@@ -24,9 +24,9 @@ export default function Page({ article, errorMessage }: PageProps) {
         }}
       />
 
-      <section className="content-wrapper py-5">
+      <section className="content-wrapper py-5 mt-60px">
         <article className="space-y-2">
-          <h1 className="font-identity text-4xl md:text-6xl pb-3">
+          <h1 className="font-identity text-8xl pb-3">
             {article.fields.Title}
           </h1>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -34,53 +34,61 @@ export default function Page({ article, errorMessage }: PageProps) {
               className="prose md:col-span-2 font-serif"
               dangerouslySetInnerHTML={{ __html: article.body.html }}
             />
-            <div className="grid lg:grid-cols-2 lg:col-span-2 gap-6">
-              <div className="space-y-5">
-                <section className="space-y-3">
-                  <h2 className="font-semibold text-lg">Research</h2>
-                  <p>
-                    <a
-                      href="https://twitter.com/AustinKelmore"
-                      className="link"
-                    >
-                      Lucy Mablin
-                    </a>
-                  </p>
-                  <h2 className="font-semibold text-lg">Website</h2>
-                  <p>
-                    Common Knowledge.&nbsp;
-                    <a
-                      href="https://twitter.com/commonknowledge"
-                      className="link"
-                    >
-                      @commonknowledge
-                    </a>
-                  </p>
-                </section>
-                <section className="space-y-3">
-                  <h2 className="font-semibold text-lg">Contact</h2>
-                  <p>
-                    <a className="link" href={`mailto:${projectStrings.email}`}>
-                      Email
-                    </a>
-                  </p>
-                  <p>
-                    <a
-                      className="link"
-                      href={`https://twitter.com/${projectStrings.twitterHandle}`}
-                    >
-                      Twitter
-                    </a>
-                  </p>
-                  <p>
-                    <a className="link" href={projectStrings.github}>
-                      GitHub
-                    </a>
-                  </p>
-                </section>
-              </div>
+            <div className="space-y-5">
               <section className="space-y-3">
-                <h2 className="font-semibold text-lg">Credits</h2>
+                <h2 className="font-semibold font-serif text-lg">Research</h2>
+                <p>
+                  <a
+                    href="https://www.sheffield.ac.uk/socstudies/people/academic-staff/lucy-mayblin"
+                    className="font-mono font-normal underline text-darkGrey"
+                  >
+                    Lucy Mablin
+                  </a>
+                </p>
+                <h2 className="font-semibold font-serif text-lg">Website</h2>
+                <p>
+                  <a
+                    href="https://commonknowledge.coop"
+                    className="font-mono font-normal underline text-darkGrey"
+                  >
+                    Common Knowledge
+                  </a>
+                </p>
+              </section>
+              <section className="space-y-3">
+                <h2 className="font-semibold font-serif text-lg">Contact</h2>
+                <p>
+                  <a
+                    className="font-mono font-normal underline text-darkGrey"
+                    href={`mailto:${projectStrings.email}`}
+                  >
+                    Email
+                  </a>
+                </p>
+                <p>
+                  <a
+                    className="font-mono font-normal underline text-darkGrey"
+                    href={`https://twitter.com/${projectStrings.twitterHandle}`}
+                  >
+                    Twitter
+                  </a>
+                </p>
+                <p>
+                  <a
+                    className="font-mono font-normal underline text-darkGrey"
+                    href={projectStrings.github}
+                  >
+                    GitHub
+                  </a>
+                </p>
+              </section>
+              <section className="space-y-3">
+                <h2 className="font-semibold font-serif text-lg">Credits</h2>
+                <p className="font-mono font-normal text-darkGrey">
+                  No need to talk to users, just base it on the space calculator
+                  we want to see more charts make sure to include in your
+                  wheelhouse.
+                </p>
               </section>
             </div>
           </div>

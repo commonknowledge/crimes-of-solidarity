@@ -696,7 +696,7 @@ export function SolidarityActionsTimeline({
                       <>
                         <Listbox.Button className={"w-full"}>
                           <FilterButton
-                            label="Status of Accused"
+                            label="Status"
                             selectionCount={selectedStatuses.length}
                             isOpen={open}
                           />
