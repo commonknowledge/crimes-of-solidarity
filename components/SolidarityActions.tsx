@@ -491,7 +491,7 @@ export function SolidarityActionCard({
           <div className="pb-4" />
           <h3
             className={cx(
-              "text-3xl leading-tight font-bold font-serif max-w-3xl"
+              "text-3xl leading-tight font-bold font-serif max-w-3xl tracking-normal"
             )}
           >
             {data.fields.Name}

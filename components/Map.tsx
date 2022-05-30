@@ -34,6 +34,7 @@ import {
 import { createPortal } from "react-dom";
 import Supercluster from "supercluster";
 import { theme } from "twin.macro";
+import { openStreetMapReverseGeocodeResponseSchema } from "../data/schema";
 import { actionUrl } from "../data/solidarityAction";
 import { SolidarityAction } from "../data/types";
 import { bboxToBounds, getViewportForFeatures } from "../utils/geo";
@@ -222,6 +223,13 @@ export default function Map({
 
   const [openPopupId, setSelectedPopup] = useState<null | string>(null);
 
+  const centerMap = (longitude: number, latitude: number) => {
+    if (mapRef)
+      if (mapRef.current)
+        if (mapRef.current._map)
+          mapRef.current._map.flyTo({ center: [longitude, latitude] });
+  };
+
   const el = (
     <ViewportContext.Provider value={viewport}>
       <div
@@ -275,6 +283,7 @@ export default function Map({
                     label={actionsUnlocated[0].geography.country[0].name}
                     isSelected={clusterMarkerId === openPopupId}
                     setSelected={setSelectedPopup}
+                    centerMap={centerMap}
                   />
                 );
               }
@@ -300,6 +309,7 @@ export default function Map({
                     actions={actions}
                     isSelected={clusterMarkerId === openPopupId}
                     setSelected={setSelectedPopup}
+                    centerMap={centerMap}
                   />
                 );
               }}
@@ -548,7 +558,7 @@ const MapMarker = ({
         }}
       >
         <div className="space-x-1 text-center">
-          <div className="transition duration-250 text-xs bg-white text-black inline capitalize font-bold tracking-tight  px-1 rounded-xl pointer-events-none">
+          <div className="transition duration-250 text-xs bg-white text-black inline capitalize font-bold tracking-tight px-1 pointer-events-none">
             {format(new Date(data.fields.Date), "MMM ''yy")}
           </div>
         </div>
@@ -565,6 +575,7 @@ const ClusterMarker = ({
   isSelected,
   setSelected,
   clusterMarkerId,
+  centerMap,
 }: {
   clusterMarkerId: string;
   longitude: number;
@@ -573,6 +584,7 @@ const ClusterMarker = ({
   label?: any;
   isSelected: boolean;
   setSelected: Dispatch<SetStateAction<string | null>>;
+  centerMap: (longitude: number, latitude: number) => void;
 }) => {
   const router = useRouter();
   const { makeContextualHref, returnHref } = useContextualRouting();
@@ -603,23 +615,24 @@ const ClusterMarker = ({
             setSelected(null);
           } else {
             setSelected(clusterMarkerId);
+            centerMap(longitude, latitude);
           }
         }}
         className="relative"
       >
-        <div className="w-7 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none">
+        <div className="w-4 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none">
           <img src="/images/map-marker.svg" className="absolute" />
           {/*
            <span className="text-sm align-middle pr-1 leading-none">
             {label}
           </span>
           */}
-          <span className="align-middle text-sm absolute px-2">
+          <span className="align-middle text-sm absolute px-1">
             {actions.length}
           </span>
         </div>
         {isSelected && (
-          <div className="bg-white p-1 rounded-xl max-w-md overflow-hidden truncate divide-y absolute top-100 left-0">
+          <div className="bg-white p-1 width-450px overflow-hidden truncate divide-y absolute top-25px left-minus-half flex flex-col items-start justify-start">
             {actions.filter(Boolean).map((action) => (
               <div key={action.slug}>
                 <div
