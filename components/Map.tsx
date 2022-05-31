@@ -590,6 +590,11 @@ const ClusterMarker = ({
   const { makeContextualHref, returnHref } = useContextualRouting();
 
   const marker = useRef<Marker>();
+  const [allVisible, setAllVisible] = useState(false);
+
+  const excessActions =
+    actions.filter(Boolean).length > 3 ? actions.filter(Boolean).slice(3) : [];
+  const pluralActionsCopy = pluralize("case", excessActions.length);
 
   useEffect(() => {
     if (marker.current._el) {
@@ -609,49 +614,66 @@ const ClusterMarker = ({
       anchor="bottom"
       className={isSelected ? "z-30" : "z-10"}
     >
-      <div
-        onClick={() => {
-          if (isSelected) {
-            setSelected(null);
-          } else {
-            setSelected(clusterMarkerId);
-            centerMap(longitude, latitude);
-          }
-        }}
-        className="relative"
-      >
-        <div className="w-4 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none">
+      <div className="relative">
+        <div
+          className="w-4 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none"
+          onClick={() => {
+            if (isSelected) {
+              setSelected(null);
+            } else {
+              setSelected(clusterMarkerId);
+              centerMap(longitude, latitude);
+            }
+          }}
+        >
           <img src="/images/map-marker.svg" className="absolute" />
-          {/*
-           <span className="text-sm align-middle pr-1 leading-none">
-            {label}
-          </span>
-          */}
           <span className="align-middle text-sm absolute px-1">
             {actions.length}
           </span>
         </div>
         {isSelected && (
           <div className="bg-white p-1 width-450px overflow-hidden truncate divide-y absolute top-25px left-minus-half flex flex-col items-start justify-start">
-            {actions.filter(Boolean).map((action) => (
-              <div key={action.slug}>
-                <div
-                  onClick={(e) => {
-                    router.push(
-                      makeContextualHref({
-                        [DEFAULT_ACTION_DIALOG_KEY]: action.slug,
-                      }),
-                      actionUrl(action),
-                      { shallow: true }
-                    );
-                  }}
-                  className="hover:border-activeBlue transition duration-75 p-1 rounded-md"
+            {actions.filter(Boolean).map((action, index) => {
+              if (index < 3 || allVisible)
+                return (
+                  <div key={action.slug}>
+                    <div
+                      onClick={(e) => {
+                        router.push(
+                          makeContextualHref({
+                            [DEFAULT_ACTION_DIALOG_KEY]: action.slug,
+                          }),
+                          actionUrl(action),
+                          { shallow: true }
+                        );
+                      }}
+                      className="hover:border-activeBlue transition duration-75 p-1 rounded-md"
+                    >
+                      <ActionMetadata data={action} />
+                      <div className="text-base -mt-1">
+                        {action.fields.Name}
+                      </div>
+                    </div>
+                  </div>
+                );
+              else return null;
+            })}
+            {excessActions.length > 0 &&
+              (!allVisible ? (
+                <span
+                  className="pr-1 hover-blue"
+                  onClick={() => setAllVisible(true)}
                 >
-                  <ActionMetadata data={action} />
-                  <div className="text-base -mt-1">{action.fields.Name}</div>
-                </div>
-              </div>
-            ))}
+                  + Load {excessActions.length} more {pluralActionsCopy}
+                </span>
+              ) : (
+                <span
+                  className="pr-1 hover-blue"
+                  onClick={() => setAllVisible(false)}
+                >
+                  - Hide {excessActions.length} {pluralActionsCopy}
+                </span>
+              ))}
           </div>
         )}
       </div>
