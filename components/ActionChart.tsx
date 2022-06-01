@@ -149,7 +149,7 @@ export function CumulativeChart({
           snapTooltipToDatumX
           snapTooltipToDatumY
           offsetLeft={0}
-          renderTooltip={({ tooltipData }) => {
+          renderTooltip={({ tooltipData }: any) => {
             if (tooltipData?.nearestDatum?.datum[0])
               return (
                 <div className="bg-white border-hoverBlue border-solid border-1 w-[150px] relative left-minus-75px p-1 ">
