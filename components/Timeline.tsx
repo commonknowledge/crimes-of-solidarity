@@ -473,8 +473,8 @@ export function SolidarityActionsTimeline({
         }}
       />
       <div className="flex flex-col lg:flex-row">
-        <section className="relative bg-white flex-1 border-r-2 border-lightGrey border-solid">
-          <div className="p-4 lg:p-5 xl:pl-7 flex flex-col flex-nowrap md:h-screen sticky top-5 space-y-4">
+        <section className="relative bg-white flex-1 border-r-2 border-lightGrey border-solid lg:max-w-[50vw]">
+          <div className="p-4 lg:p-5 xl:pl-7 flex flex-col flex-nowrap md:h-screen sticky top-5">
             <section className="flex-grow-0">
               <div className="flex flex-wrap w-full justify-between text-sm">
                 <h3 className="text-base text-left text-lg left-0 font-bold mb-2 font-serif">
@@ -781,7 +781,7 @@ export function SolidarityActionsTimeline({
                 }}
               />
             </section>
-            <section className="pt-1 flex-grow-0">
+            <section className="pt-1 flex-grow-0 w-full">
               <h3 className="text-base text-left w-full font-semibold">
                 Select year
               </h3>

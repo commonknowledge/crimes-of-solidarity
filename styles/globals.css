@@ -150,6 +150,10 @@ body {
     left: -200px;
   }
 
+  .left-minus-75px {
+    left: -75px;
+  }
+
   .action-chart svg {
     @apply overflow-visible;
   }
@@ -158,7 +162,26 @@ body {
     @apply hover-blue-border p-0;
   }
 
+  .tooltip-year {
+    opacity: 1;
+    background-color: white;
+    color: black;
+  }
+
   .nav-link {
     @apply font-normal transition-all duration-75 bg-transparent hover:text-hoverBlue hover:border-hoverBlue hover:border-solid border-1 border-white inline-block px-3 -mx-2 md:-mx-1 py-2;
   }
+}
+
+.visx-tooltip {
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.visx-bar {
+  fill: #c6ccff;
+}
+
+.visx-bar:hover {
+  fill: #4b5ae7;
 }
