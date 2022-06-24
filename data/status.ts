@@ -1,10 +1,21 @@
 import { Status } from './types';
 import { airtableBase } from './airtable';
 import env from 'env-var';
-import { statusSchema } from './schema';
+import { baseRecordSchema, solidarityActionSchema, copyTypeSchema } from './schema';
+import { z } from "zod";
 import { QueryParams } from 'airtable/lib/query_params';
 import { getLiveSolidarityActionsByStatusId } from './solidarityAction';
 import { parseMarkdown } from './markdown';
+
+const statusSchema = baseRecordSchema.extend({
+    fields: z.object({
+        Name: z.string(),
+        Summary: z.string().optional(),
+        "Solidarity Actions": z.array(z.string()).optional(),
+    }),
+    solidarityActions: z.array(solidarityActionSchema).optional(),
+    summary: copyTypeSchema,
+});
 
 export const formatStatus = (status: Status) => {
     status.fields.Name.trim()

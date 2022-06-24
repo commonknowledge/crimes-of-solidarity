@@ -524,7 +524,7 @@ export function SolidarityActionCard({
           </div>
         )}
         <div className="p-4 md:px-8 bg-white font-serif">
-          Have more info about this case{" "}
+          Have more information about this case?{" "}
           <a className="link" href={`mailto:${projectStrings.email}`}>
             Let us know &rarr;
           </a>

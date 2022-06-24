@@ -178,10 +178,6 @@ body {
   padding: 0 !important;
 }
 
-.visx-bar {
-  fill: #c6ccff;
-}
-
-.visx-bar:hover {
-  fill: #4b5ae7;
+.mapboxgl-canvas {
+  width: 100% !important;
 }

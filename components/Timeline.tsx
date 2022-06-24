@@ -495,7 +495,7 @@ export function SolidarityActionsTimeline({
                   </div>
                 ) : null}
               </div>
-              <div className="relative flex flex-wrap w-full">
+              <div className="relative flex flex-wrap justify-between w-full">
                 <div className="filter-item flex-grow">
                   <Listbox
                     value={filteredYears}

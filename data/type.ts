@@ -1,9 +1,21 @@
 import { Type } from './types';
 import { airtableBase } from './airtable';
 import env from 'env-var';
-import { typeSchema } from './schema';
+import { baseRecordSchema, solidarityActionSchema, copyTypeSchema } from './schema';
 import { QueryParams } from 'airtable/lib/query_params';
 import { getLiveSolidarityActionsByTypeId } from './solidarityAction';
+import { z } from "zod";
+
+const typeSchema = baseRecordSchema.extend({
+  fields: z.object({
+    Name: z.string(),
+    Summary: z.string().optional(),
+    "Solidarity Actions": z.array(z.string()).optional(),
+  }),
+  solidarityActions: z.array(solidarityActionSchema).optional(),
+  summary: copyTypeSchema,
+});
+
 import { parseMarkdown } from './markdown';
 
 export const formatType = (type: Type) => {
@@ -31,6 +43,7 @@ export async function getTypes(selectArgs: QueryParams<Type['fields']> = {}): Pr
     const types: Type[] = []
 
     function finish() {
+
       try {
         resolve(
           types.filter(a =>

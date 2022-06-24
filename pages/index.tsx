@@ -74,6 +74,8 @@ export default function Page({
     years.push(yearsCollection[year]);
   }
 
+  years.reverse();
+
   return (
     <PageLayout>
       {/* <ActionsContext.Provider value={{

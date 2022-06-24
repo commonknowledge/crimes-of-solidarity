@@ -4,7 +4,7 @@ import { bin, HistogramGeneratorNumber } from "d3-array";
 import { timeMonth, timeMonths, timeYears } from "d3-time";
 import { timeFormat } from "d3-time-format";
 import { min } from "date-fns";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { theme } from "twin.macro";
 import { isMissingDeclaration } from "typescript";
 import { SolidarityAction } from "../data/types";
@@ -23,11 +23,14 @@ export function CumulativeMovementChart({
   const minDate = min([new Date("2000-01-01"), ...actionDates]);
   const maxDate = new Date();
 
+  const isSmallScreen = !useMediaQuery(up("md"));
   const timelineWidth = (maxDate.getFullYear() - minDate.getFullYear()) * 30;
 
   return (
     <div
-      className="relative cursor-pointer action-chart overflow-x-scroll"
+      className={`relative cursor-pointer action-chart ${
+        isSmallScreen ? "overflow-x-scroll" : "overflow-x-visible"
+      }`}
       style={{ height: 120, maxHeight: "25vh", width: "100%" }}
     >
       <ParentSize>
@@ -37,9 +40,10 @@ export function CumulativeMovementChart({
               data={data}
               minDate={minDate}
               maxDate={maxDate}
-              width={timelineWidth}
+              width={isSmallScreen ? timelineWidth : parent.width}
               height={parent.height}
               onSelectYear={onSelectYear}
+              isSmallScreen={isSmallScreen}
             />
           </>
         )}
@@ -68,6 +72,7 @@ export function CumulativeChart({
   minDate,
   maxDate,
   onSelectYear,
+  isSmallScreen,
 }: {
   minDate: Date;
   maxDate: Date;
@@ -76,11 +81,14 @@ export function CumulativeChart({
   width?: number;
   cumulative?: boolean;
   onSelectYear?: (year: string) => void;
+  isSmallScreen: boolean;
 }) {
   var yearBins = timeYears(
     timeMonth.offset(minDate, -1),
     timeMonth.offset(maxDate, 1)
   );
+
+  const [hoverDatum, setHoverDatum] = useState<Datum | null>();
 
   const createBinFn = (dateBins: Date[]) => {
     return bin<SolidarityAction, Date>()
@@ -99,13 +107,11 @@ export function CumulativeChart({
     return d;
   }, [data]);
 
-  const isSmallScreen = !useMediaQuery(up("xl"));
-
   return (
     <ThemeContext.Provider
       value={{
         backgroundColor: "transparent",
-        colors: [theme`colors.activeBlue`],
+        colors: [theme`colors.activeBlue`, theme`colors.hoverBlue`],
         axisStyles: {
           x: {
             // @ts-ignore
@@ -140,35 +146,41 @@ export function CumulativeChart({
           onPointerUp={(e) => {
             onSelectYear?.(timeFormat("%Y")(accessors.xAccessor(e.datum)));
           }}
+          onPointerMove={(e) => setHoverDatum(e.datum)}
+          onPointerOut={(e) => setHoverDatum(null)}
+          colorAccessor={(datum) =>
+            datum == hoverDatum
+              ? theme`colors.hoverBlue`
+              : theme`colors.activeBlue`
+          }
         />
-        <Axis
-          orientation="bottom"
-          tickFormat={timeFormat(isSmallScreen ? "%y" : "%Y")}
-        />
-        <Tooltip
-          snapTooltipToDatumX
-          snapTooltipToDatumY
-          offsetLeft={0}
-          renderTooltip={({ tooltipData }: any) => {
-            if (tooltipData?.nearestDatum?.datum[0])
-              return (
-                <div className="bg-white border-hoverBlue border-solid border-1 w-[150px] relative left-minus-75px p-1 ">
-                  <div className="tooltip-year">
-                    <p className=" font-mono text-darkGrey">
-                      {tooltipData?.nearestDatum?.datum[0].fields.Date.slice(
-                        0,
-                        4
-                      )}
-                    </p>
-                    <p className="font-serif text-lg text-black">
-                      {tooltipData?.nearestDatum?.datum?.length} cases
-                    </p>
+        <Axis orientation="bottom" tickFormat={timeFormat("%Y")} />
+        {!isSmallScreen && (
+          <Tooltip
+            snapTooltipToDatumX
+            snapTooltipToDatumY
+            offsetLeft={0}
+            renderTooltip={({ tooltipData }: any) => {
+              if (tooltipData?.nearestDatum?.datum[0])
+                return (
+                  <div className="bg-white border-hoverBlue border-solid border-1 w-[150px] relative left-minus-75px p-1 ">
+                    <div className="tooltip-year">
+                      <p className=" font-mono text-darkGrey">
+                        {tooltipData?.nearestDatum?.datum[0].fields.Date.slice(
+                          0,
+                          4
+                        )}
+                      </p>
+                      <p className="font-serif text-lg text-black">
+                        {tooltipData?.nearestDatum?.datum?.length} cases
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            else return null;
-          }}
-        />
+                );
+              else return null;
+            }}
+          />
+        )}
       </XYChart>
     </ThemeContext.Provider>
   );
