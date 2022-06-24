@@ -28,7 +28,7 @@ export function CumulativeMovementChart({
     ? "overflow-x-scroll"
     : "overflow-x-visible";
 
-  const timelineWidth = (maxDate.getFullYear() - minDate.getFullYear()) * 30;
+  const timelineWidth = (maxDate.getFullYear() - minDate.getFullYear()) * 15;
 
   return (
     <div

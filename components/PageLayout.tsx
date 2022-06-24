@@ -43,11 +43,11 @@ function Header({}: {}) {
         id="static-header"
       >
         <div className="content-wrapper">
-          <div className="flex justify-between sm:space-x-4 sm:space-y-0 items-top">
-            <div className="leading-none text-4xl lg:text-[4vw] w-2/5 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0 ">
+          <div className="flex flex-col md:flex-row  justify-between sm:space-x-4 sm:space-y-0 items-top">
+            <div className="leading-none text-4xl lg:text-[4vw] md:w-2/5 font-identity cursor-pointer hover:text-activeBlue flex-shrink-0 ">
               <Link href="/">Crimes of Solidarity and Humanitarianism</Link>
             </div>
-            <p className=" mt-0 leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 max-w-6/12 font-bold font-serif">
+            <p className=" mt-0 leading-normal sm:leading-tight text-xl xl:text-2xl sm:w-1/2 block text-200 md:max-w-6/12 font-bold font-serif">
               Documenting legal cases against people helping irregular migrants,
               known as crimes of solidarity and humanitarianism.
             </p>

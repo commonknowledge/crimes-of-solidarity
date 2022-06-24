@@ -104,6 +104,10 @@ body {
     color: #4b5ae7;
   }
 
+  .blue-border {
+    border: 2px solid #4b5ae7;
+  }
+
   .hover-blue-border {
     border: 2px solid white;
   }
@@ -138,8 +142,8 @@ body {
     left: 0.375rem;
   }
 
-  .top-25px {
-    top: 25px;
+  .top-30px {
+    top: 30px;
   }
 
   .width-450px {
@@ -158,8 +162,17 @@ body {
     @apply overflow-visible;
   }
 
+  .square-and-transparent {
+    border-radius: 0px !important;
+    opacity: 0.7;
+  }
+
   .country-popup .mapboxgl-popup-content {
-    @apply hover-blue-border p-0;
+    @apply blue-border p-0 square-and-transparent;
+  }
+
+  .mapboxgl-popup-tip {
+    @apply hidden;
   }
 
   .tooltip-year {

@@ -494,6 +494,7 @@ const CountryPopup = memo(
         longitude={lng}
         closeButton={false}
         closeOnClick={false}
+        anchor={null}
         className="min-w-[170px] country-popup"
       >
         <div
@@ -506,13 +507,12 @@ const CountryPopup = memo(
             )
           }
         >
-          <div className="text-base">
+          <div className="text-base font-mono text-darkGrey">
             {exampleAction.geography.country[0].name}
           </div>
-          <div className="text-xl">
+          <div className="text-xl font-serif font-bold">
             {pluralize("case", actions.length, true)}
           </div>
-          <div className="underline text-base">View</div>
         </div>
       </Popup>
     );
@@ -616,7 +616,7 @@ const ClusterMarker = ({
     >
       <div className="relative">
         <div
-          className="w-4 text-center items-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none"
+          className="w-6 text-center items-center justify-center inline-flex flex-row transition duration-250 text-black font-bold tracking-tight px-1 rounded-xl leading-none"
           onClick={() => {
             if (isSelected) {
               setSelected(null);
@@ -632,7 +632,7 @@ const ClusterMarker = ({
           </span>
         </div>
         {isSelected && (
-          <div className="bg-white p-1 width-450px overflow-hidden truncate divide-y absolute top-25px left-minus-half flex flex-col items-start justify-start">
+          <div className="bg-white p-1 width-450px overflow-hidden truncate divide-y absolute top-30px left-minus-half flex flex-col items-start justify-start">
             {actions.filter(Boolean).map((action, index) => {
               if (index < 3 || allVisible)
                 return (
@@ -650,7 +650,7 @@ const ClusterMarker = ({
                       className="hover:border-activeBlue transition duration-75 p-1 rounded-md"
                     >
                       <ActionMetadata data={action} />
-                      <div className="text-base -mt-1">
+                      <div className="text-base -mt-1 font-serif">
                         {action.fields.Name}
                       </div>
                     </div>

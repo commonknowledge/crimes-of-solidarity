@@ -483,7 +483,7 @@ export function SolidarityActionCard({
           description: data.summary.plaintext,
         }}
       />
-      <article className={cx("space-y-2px overflow-hidden")}>
+      <article className={cx("space-y-2px overflow-hidden bg-white")}>
         <div className="p-4 md:px-8 bg-white">
           <div className="text-sm">
             <ActionMetadata data={data} />
@@ -502,7 +502,7 @@ export function SolidarityActionCard({
               dangerouslySetInnerHTML={{ __html: data.summary.html }}
             />
           )}
-          <div className="flex flex-row space-x-4 mt-3 text-sm">
+          <div className="flex flex-row space-x-4 mt-3 text-sm font-mono">
             {data.fields.Link && (
               <a href={data.fields.Link} className="block my-1">
                 &nbsp;
