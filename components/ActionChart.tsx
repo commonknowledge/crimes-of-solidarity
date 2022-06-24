@@ -9,7 +9,7 @@ import { theme } from "twin.macro";
 import { isMissingDeclaration } from "typescript";
 import { SolidarityAction } from "../data/types";
 import { useMediaQuery } from "../utils/mediaQuery";
-import { up } from "../utils/screens";
+import { down } from "../utils/screens";
 
 export function CumulativeMovementChart({
   data,
@@ -23,14 +23,16 @@ export function CumulativeMovementChart({
   const minDate = min([new Date("2000-01-01"), ...actionDates]);
   const maxDate = new Date();
 
-  const isSmallScreen = !useMediaQuery(up("md"));
+  const isSmallScreen = useMediaQuery(down("lg"));
+  const overflowStyle = isSmallScreen
+    ? "overflow-x-scroll"
+    : "overflow-x-visible";
+
   const timelineWidth = (maxDate.getFullYear() - minDate.getFullYear()) * 30;
 
   return (
     <div
-      className={`relative cursor-pointer action-chart ${
-        isSmallScreen ? "overflow-x-scroll" : "overflow-x-visible"
-      }`}
+      className={`relative cursor-pointer action-chart ${overflowStyle}`}
       style={{ height: 120, maxHeight: "25vh", width: "100%" }}
     >
       <ParentSize>
