@@ -24,16 +24,12 @@ export function CumulativeMovementChart({
   const maxDate = new Date();
 
   const isSmallScreen = useMediaQuery(down("md"));
-  const overflowStyle = isSmallScreen
-    ? "overflow-x-scroll"
-    : "overflow-x-visible";
-
   const fixedTimelineWidth =
     (maxDate.getFullYear() - minDate.getFullYear()) * 15;
 
   return (
     <div
-      className={`relative cursor-pointer action-chart ${overflowStyle}`}
+      className={`relative cursor-pointer action-chart overflow-x-scroll md:overflow-x-visible`}
       style={{ height: 120, maxHeight: "25vh", width: "100%" }}
     >
       <ParentSize>
