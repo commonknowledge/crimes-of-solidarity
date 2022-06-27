@@ -85,7 +85,7 @@ body {
     @apply inline-flex mr-2 mb-2 p-0;
 
     &:last-child {
-      @apply mr-0 mb-0;
+      @apply mr-0;
     }
   }
 

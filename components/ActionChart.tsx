@@ -23,12 +23,13 @@ export function CumulativeMovementChart({
   const minDate = min([new Date("2000-01-01"), ...actionDates]);
   const maxDate = new Date();
 
-  const isSmallScreen = useMediaQuery(down("lg"));
+  const isSmallScreen = useMediaQuery(down("md"));
   const overflowStyle = isSmallScreen
     ? "overflow-x-scroll"
     : "overflow-x-visible";
 
-  const timelineWidth = (maxDate.getFullYear() - minDate.getFullYear()) * 15;
+  const fixedTimelineWidth =
+    (maxDate.getFullYear() - minDate.getFullYear()) * 15;
 
   return (
     <div
@@ -42,7 +43,7 @@ export function CumulativeMovementChart({
               data={data}
               minDate={minDate}
               maxDate={maxDate}
-              width={isSmallScreen ? timelineWidth : parent.width}
+              width={isSmallScreen ? fixedTimelineWidth : parent.width}
               height={parent.height}
               onSelectYear={onSelectYear}
               isSmallScreen={isSmallScreen}
