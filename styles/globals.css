@@ -73,8 +73,14 @@ body {
     @apply mx-auto px-4 lg:px-5 xl:px-7;
   }
 
+  @media screen and (max-width: 768px) {
+    .w-47 {
+      width: 47%;
+    }
+  }
+
   .filter-item {
-    @apply inline-block mr-2 mb-2 text-left;
+    @apply inline-block mr-2 mb-2 text-left w-47;
 
     &:last-child {
       @apply mr-0 mb-0;
@@ -90,7 +96,7 @@ body {
   }
 
   .listbox-dropdown {
-    @apply border-2 border-white overflow-y-auto rounded-lg rounded-tl-none bg-white absolute z-40 shadow-white;
+    @apply border-2 border-black overflow-y-auto rounded-tl-none bg-white absolute z-40 shadow-white;
     margin-top: -2px;
     max-height: 33vh;
     height: 400;
@@ -182,7 +188,7 @@ body {
   }
 
   .nav-link {
-    @apply font-normal transition-all duration-75 bg-transparent hover:text-hoverBlue hover:border-hoverBlue hover:border-solid border-1 border-white inline-block px-3 -mx-2 md:-mx-1 py-2;
+    @apply font-normal transition-all duration-75 bg-transparent hover:text-hoverBlue hover:border-hoverBlue hover:border-solid inline-block px-3 -mr-2 md:-mx-1 py-2;
   }
 }
 

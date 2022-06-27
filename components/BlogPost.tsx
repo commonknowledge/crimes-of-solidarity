@@ -23,7 +23,7 @@ export function BlogPostThumbnail({ blog: b }: { blog: BlogPost }) {
             />
           </div>
         )}
-        <header className="space-x-4 text-xs font-semibold">
+        <header className="space-x-4 text-xs font-semibold font-mono">
           <DateTime date={b.fields.Date} />
         </header>
         <h2 className="font-semibold font-serif text-3xl leading-tight">

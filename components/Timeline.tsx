@@ -538,6 +538,12 @@ export function SolidarityActionsTimeline({
                                     >
                                       <span className="text-sm inline-block align-baseline">
                                         {year.fields.Name}
+                                        {isSelected && (
+                                          <img
+                                            src="/images/icon-tick.svg"
+                                            className="h-2 pl-3 pr-2 inline"
+                                          />
+                                        )}
                                       </span>
                                       <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                         {/* {pluralize('action', countIfYouIncludeThis, true)} */}
@@ -554,7 +560,7 @@ export function SolidarityActionsTimeline({
                     )}
                   </Listbox>
                 </div>
-                <div className="filter-item flex-grow">
+                <div className="filter-item flex-grow mr-0 lg:mr-2">
                   <Listbox
                     value={filteredCountrySlugs}
                     onChange={(v) => toggleCountry(v as any)}
@@ -605,6 +611,12 @@ export function SolidarityActionsTimeline({
                                       </span>
                                       <span className="text-sm ml-1 inline-block">
                                         {country.fields.Name}
+                                        {isSelected && (
+                                          <img
+                                            src="/images/icon-tick.svg"
+                                            className="h-2 pl-3 pr-2 inline"
+                                          />
+                                        )}
                                       </span>
                                       <span className="inline-block align-baseline text-xs ml-auto pl-3">
                                         {numberOfSolidarityActionsInCountry}
@@ -670,6 +682,12 @@ export function SolidarityActionsTimeline({
                                         </span>
                                         <span className="text-sm inline-block align-baseline capitalize ml-1">
                                           {type.fields.Name}
+                                          {isSelected && (
+                                            <img
+                                              src="/images/icon-tick.svg"
+                                              className="h-2 pl-3 pr-2 inline"
+                                            />
+                                          )}
                                         </span>
                                         <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                           {/* {pluralize('action', countIfYouIncludeThis, true)} */}
@@ -702,7 +720,7 @@ export function SolidarityActionsTimeline({
                           />
                         </Listbox.Button>
                         <Listbox.Options>
-                          <div className="listbox-dropdown w-full">
+                          <div className="listbox-dropdown w-1/2 lg:w-full">
                             {statuses.map((status) => {
                               const isSelected = !!selectedStatuses.find(
                                 (c) => c?.id === status.id
@@ -734,6 +752,12 @@ export function SolidarityActionsTimeline({
                                       >
                                         <span className="text-sm inline-block align-baseline">
                                           {status.fields.Name}
+                                          {isSelected && (
+                                            <img
+                                              src="/images/icon-tick.svg"
+                                              className="h-2 pl-3 pr-2 inline"
+                                            />
+                                          )}
                                         </span>
                                         <span className="align-baseline inline-block text-xs ml-auto pl-3">
                                           {/* {pluralize('action', countIfYouIncludeThis, true)} */}
@@ -801,7 +825,7 @@ export function SolidarityActionsTimeline({
           {!!relevantGroups.length && hasFilters && (
             <article>
               <h3 className="text-3xl font-light font-identity">
-                Related unions and groups
+                Related groups
               </h3>
               <ul className="list space-y-1 my-3">
                 <Disclosure>

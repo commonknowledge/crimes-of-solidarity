@@ -16,15 +16,15 @@ export function FilterButton({
       className={cx(
         !isOpen && !hasSelections ? "border-gray-300" : "",
         isOpen
-          ? "border-b-0 rounded-b-none bg-white z-50 border-white"
+          ? "border-b-0 rounded-b-none bg-white z-50 border-black"
           : "hover:border-activeBlue border-solid border-1",
-        hasSelections ? "border-white" : "",
+        hasSelections ? "border-black" : "",
         !isOpen && hasSelections
           ? "text-black border-black"
           : isOpen && hasSelections
           ? "text-black border-black"
           : // Untouched state
-            "hover:border-white active:bg-white",
+            "active:bg-white",
         "text-midGrey border-2 px-3 py-2 text-sm font-normal font-mono w-full relative"
       )}
     >
@@ -60,7 +60,7 @@ export function FilterOption({
     <div
       className={cx(
         selected
-          ? "bg-white"
+          ? "bg-white text-hoverBlue"
           : disabled
           ? "text-gray-400 cursor-not-allowed"
           : active

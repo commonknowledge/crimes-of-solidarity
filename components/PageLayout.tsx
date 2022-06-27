@@ -104,13 +104,13 @@ function Footer({}: {}) {
   return (
     <footer className="mt-auto bg-white text-sm border-t-2 border-lightGrey border-solid">
       <div className="content-wrapper py-5 md:py-6 space-y-4 flex flex-col md:flex-row justify-between items-start align-top">
-        <div className="space-y-4 flex justify-between flex-grow">
+        <div className="flex justify-between flex-grow">
           <nav className="inline-flex flex-wrap -mx-1 md:-mx-2">
             {data?.footerLinks?.map?.((link, i) => (
               <a
                 href={link.fields.url}
                 key={link.fields.url}
-                className={"mx-30px"}
+                className={"mx-30px w-1/5 lg:w-auto"}
               >
                 <span
                   className={`nav-link font-mono text-darkGrey ${
@@ -122,7 +122,7 @@ function Footer({}: {}) {
               </a>
             ))}
           </nav>
-          <div className="inline self-center justify-self-end font-mono mt-0 text-darkGrey">
+          <div className="inline self-center justify-self-end font-mono text-darkGrey">
             Site by{" "}
             <a className="link" href="https://commonknowledge.coop">
               Common Knowledge

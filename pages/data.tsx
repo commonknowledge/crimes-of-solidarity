@@ -19,7 +19,7 @@ export default function Page({ introHTML }: { introHTML: string }) {
       <div className="py-5 content-wrapper">
         <h1 className="font-identity text-4xl mb-2">Get the Data</h1>
         <div
-          className="max-w-2xl prose"
+          className="max-w-2xl prose font-serif"
           dangerouslySetInnerHTML={{ __html: introHTML }}
         />
       </div>
