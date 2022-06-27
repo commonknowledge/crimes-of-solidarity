@@ -14,18 +14,18 @@ export function FilterButton({
   return (
     <div
       className={cx(
-        !isOpen && !hasSelections ? "border-gray-300" : "",
+        !isOpen && !hasSelections ? "border-gray-300 text-midGrey" : "",
         isOpen
           ? "border-b-0 rounded-b-none bg-white z-50 border-black"
           : "hover:border-activeBlue border-solid border-1",
-        hasSelections ? "border-black" : "",
+        hasSelections ? "border-black text-black" : "",
         !isOpen && hasSelections
           ? "text-black border-black"
           : isOpen && hasSelections
           ? "text-black border-black"
           : // Untouched state
             "active:bg-white",
-        "text-midGrey border-2 px-3 py-2 text-sm font-normal font-mono w-full relative"
+        "border-2 px-3 py-2 text-sm font-normal font-mono w-full relative"
       )}
     >
       {!selectionCount ? label : pluralize(label, selectionCount, true)}
