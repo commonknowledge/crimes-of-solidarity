@@ -655,7 +655,7 @@ export function SolidarityActionsTimeline({
                                     ...defaults,
                                     selectedTypes: [...selectedTypes, type],
                                   });
-                              const isSelected = !!selectedCategories.find(
+                              const isSelected = !!selectedTypes.find(
                                 (c) => c?.id === type.id
                               );
                               return (
