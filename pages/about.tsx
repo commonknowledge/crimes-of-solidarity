@@ -74,7 +74,9 @@ export default function Page({ article, errorMessage }: PageProps) {
                   </a>
                 </p>
               </section>
-              <section className="space-y-3">
+              {/* 
+                
+                 <section className="space-y-3">
                 <h2 className="font-semibold font-serif text-lg">Credits</h2>
                 <p className="font-mono font-normal text-darkGrey">
                   No need to talk to users, just base it on the space calculator
@@ -82,6 +84,8 @@ export default function Page({ article, errorMessage }: PageProps) {
                   wheelhouse.
                 </p>
               </section>
+
+                */}
             </div>
           </div>
         </article>
