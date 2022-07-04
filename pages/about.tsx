@@ -73,14 +73,6 @@ export default function Page({ article, errorMessage }: PageProps) {
                     Twitter
                   </a>
                 </p>
-                <p>
-                  <a
-                    className="font-mono font-normal underline text-darkGrey"
-                    href={projectStrings.github}
-                  >
-                    GitHub
-                  </a>
-                </p>
               </section>
               <section className="space-y-3">
                 <h2 className="font-semibold font-serif text-lg">Credits</h2>

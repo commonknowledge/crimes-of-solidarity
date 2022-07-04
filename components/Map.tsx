@@ -6,6 +6,7 @@ import ReactMapGL, {
   Marker,
   Popup,
   Source,
+  NavigationControl,
 } from "@urbica/react-map-gl";
 import Cluster from "@urbica/react-map-gl-cluster";
 import cx from "classnames";
@@ -259,6 +260,7 @@ export default function Map({
           ref={mapRef}
           viewportChangeMethod="flyTo"
         >
+          <NavigationControl />
           <ActionSource data={data} />
           <CountryLayer
             mode={displayStyle}
