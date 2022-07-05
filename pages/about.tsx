@@ -31,7 +31,7 @@ export default function Page({ article, errorMessage }: PageProps) {
           </h1>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
             <section
-              className="prose md:col-span-2 font-serif"
+              className="prose md:col-span-2 font-serif text-lg"
               dangerouslySetInnerHTML={{ __html: article.body.html }}
             />
             <div className="space-y-5">
@@ -42,7 +42,7 @@ export default function Page({ article, errorMessage }: PageProps) {
                     href="https://www.sheffield.ac.uk/socstudies/people/academic-staff/lucy-mayblin"
                     className="font-mono font-normal underline text-darkGrey"
                   >
-                    Lucy Mablin
+                    Lucy Mayblin
                   </a>
                 </p>
                 <h2 className="font-semibold font-serif text-lg">Website</h2>
