@@ -819,7 +819,7 @@ export function SolidarityActionsTimeline({
 
         <section className="p-4 lg:p-5 xl:pr-7 space-y-4 flex-1">
           <h2 className="text-6xl font-identity">
-            {pluralize("case", filteredActions.length, true)}
+            {pluralize("law and case", filteredActions.length, true)}
           </h2>
 
           {!!relevantGroups.length && hasFilters && (

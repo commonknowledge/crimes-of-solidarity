@@ -513,7 +513,7 @@ const CountryPopup = memo(
             {exampleAction.geography.country[0].name}
           </div>
           <div className="text-xl font-serif font-bold">
-            {pluralize("case", actions.length, true)}
+            {pluralize("law and case", actions.length, true)}
           </div>
         </div>
       </Popup>
@@ -596,7 +596,7 @@ const ClusterMarker = ({
 
   const excessActions =
     actions.filter(Boolean).length > 3 ? actions.filter(Boolean).slice(3) : [];
-  const pluralActionsCopy = pluralize("case", excessActions.length);
+  const pluralActionsCopy = pluralize("law and case", excessActions.length);
 
   useEffect(() => {
     if (marker.current._el) {

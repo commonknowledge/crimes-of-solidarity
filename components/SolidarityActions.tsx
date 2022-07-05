@@ -221,7 +221,12 @@ export function SolidarityActionsList({
 
           const hiddenActionsOpen = openYears.includes(yearString);
 
-          const pluralActionsCopy = pluralize("case", hiddenActions.length);
+          pluralize.addIrregularRule("law and case", "laws and cases");
+
+          const pluralActionsCopy = pluralize(
+            "law and case",
+            hiddenActions.length
+          );
 
           return (
             <div key={i} className="mb-60px">
@@ -230,7 +235,7 @@ export function SolidarityActionsList({
                   {yearString}
                 </h2>
                 <div className="text-lg font-bold font-serif">
-                  {pluralize("case", actions.length, true)}
+                  {pluralize("law and case", actions.length, true)}
                 </div>
               </div>
               <div className="space-y-4">
@@ -599,7 +604,9 @@ export function SolidarityActionCountryRelatedActions({
       subtitle={"Country"}
       url={`/?country=${data?.fields?.Slug}`}
       name={data?.fields ? <span>{data?.fields.Name}</span> : countryCode}
-      metadata={actionCount ? pluralize("case", actionCount, true) : undefined}
+      metadata={
+        actionCount ? pluralize("law and case", actionCount, true) : undefined
+      }
     />
   );
 }
