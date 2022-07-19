@@ -17,12 +17,10 @@ function MyApp({ Component, pageProps, headerLinks, footerLinks }) {
   const router = useRouter();
 
   useEffect(() => {
-    Fathom.load("OZSKHUQE", {
+    Fathom.load("WLJDOSUV", {
       includedDomains: [
-        "gameworkersolidarity.com",
-        "www.gameworkersolidarity.com",
-      ],
-      url: "https://skunk.gameworkersolidarity.com/script.js",
+        "www.crimesofsolidarity.com",
+      ]
     });
 
     function onRouteChangeComplete() {
