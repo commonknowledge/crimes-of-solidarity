@@ -1,12 +1,10 @@
-#  [gameworkersolidarity.com](https://gameworkersolidarity.com)
+#  [https://www.crimesofsolidarity.org/](https://www.crimesofsolidarity.org/)
 
-Crimes of Solidarity is mapping and documenting collective movements by game workers striving to improve their working conditions. We're collecting materials created by workers for these movements and aim to document the longer history of resistance in the industry which goes back to its formation.
+This is a new database website documenting crimes of solidarity and humanitarianism. This is a project led by Dr. Lucy Mayblin at the University of Sheffield, UK.
 
-This repository is for a website backed by a database of events that can be freely searched by location, type of action, and numbers involved for events like the creation of trade union branches, new contracts, strikes, protests, social media campaigns, etc.
+Around the world, a growing number of people are subjected to criminal measures for helping irregular migrants, including those who are seeking asylum. Acts as simple as leaving water in the desert, saving someone from drowning in the sea, giving someone a lift to a medical facility, or a bed for the night, lead those offering such assistance open to arrest and imprisonment. While activists keep records of arrests in different countries, and there has been a lot of research in Europe on the criminalisation of solidarity activities, we currently have little understanding of this as a global phenomenon. The Crimes of Solidarity and Humanitarianism database aims to build understanding of criminalisation across borders for research and resistance.
 
-Where possible, we'll also interview and record oral histories with participants of these movements to produce a living resource that can help support and inspire more organising in the games industry.
-
-Do you have any information to share with us that we can add to the timeline? [Get in touch!](mailto:l.mayblin@sheffield.ac.uk)
+Do you have any information to share with us that we can add to the archive? [Get in touch!](mailto:l.mayblin@sheffield.ac.uk)
 
 # Technical documentation
 
