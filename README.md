@@ -71,4 +71,4 @@ yarn generateschema
 
 ## Deployment
 
-This repo auto-deploys to Vercel.
+This repository auto-deploys to Vercel.
