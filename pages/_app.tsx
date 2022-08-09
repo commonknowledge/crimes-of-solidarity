@@ -2,7 +2,7 @@ import * as Fathom from "fathom-client";
 import { DefaultSeo } from "next-seo";
 import App from "next/app";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { SWRConfig } from "swr";
 import { getMenuItems } from "../data/menuItem";
 import { useCanonicalURL } from "../data/seo";

@@ -449,6 +449,8 @@ export function SolidarityActionsTimeline({
     groups || []
   );
 
+  pluralize.addIrregularRule("law and case", "laws and cases");
+
   /**
    * Render
    */

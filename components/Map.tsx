@@ -490,6 +490,7 @@ const CountryPopup = memo(
   }) => {
     const router = useRouter();
     const exampleAction = actions?.[0];
+    pluralize.addIrregularRule("law and case", "laws and cases");
     return !exampleAction ? null : (
       <Popup
         latitude={lat}
