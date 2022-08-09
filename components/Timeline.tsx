@@ -784,9 +784,7 @@ export function SolidarityActionsTimeline({
                   className="h-2 absolute pl-3 pr-2"
                 />
                 <input
-                  placeholder={
-                    "Search by region, state, country or type of case"
-                  }
+                  placeholder="Search"
                   type="search"
                   value={filterText}
                   onChange={(e) => setFilterText(e.target.value.trimStart())}
