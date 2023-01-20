@@ -1,4 +1,4 @@
-#  [https://www.crimesofsolidarity.org/](https://www.crimesofsolidarity.org/)
+#  [Crimes of Solidarity](https://www.crimesofsolidarity.org/)
 
 This is a new database website documenting crimes of solidarity and humanitarianism. This is a project led by Dr. Lucy Mayblin at the University of Sheffield, UK.
 
