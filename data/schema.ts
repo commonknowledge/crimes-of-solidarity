@@ -172,7 +172,7 @@ export const solidarityActionAirtableRecordSchema = baseRecordSchema.extend({
     Location: z.string().optional(),
     Summary: z.string().optional(),
     Type: z.array(z.string()).optional(),
-    TypeName: z.string().optional(),
+    TypeName: z.array(z.string()).optional(),
     StatusOfAccused: z.array(z.string()).optional(),
     Date: z.string().optional(),
     LastModified: z.string().optional(),
@@ -210,7 +210,7 @@ export const solidarityActionSchema = solidarityActionAirtableRecordSchema.and(
         Public: z.literal(true),
         LastModified: z.string(),
         hasPassedValidation: z.literal(true),
-        TypeName: z.string(),
+        TypeName: z.array(z.string()),
       })
     ),
   })

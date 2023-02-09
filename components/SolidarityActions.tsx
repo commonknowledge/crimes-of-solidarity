@@ -456,7 +456,7 @@ export function ActionMetadata({ data }: { data: SolidarityAction }) {
       ))}
       {data.fields?.Type?.map((c, i) => (
         <span className="block pr-3 font-mono text-darkGrey" key={c}>
-          {data.fields.TypeName}
+          {data.fields.TypeName[i]}
         </span>
       ))}
     </div>
