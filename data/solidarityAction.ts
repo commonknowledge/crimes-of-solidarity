@@ -25,7 +25,7 @@ export const formatSolidarityAction = async (record: SolidarityActionAirtableRec
       action.cdnMap = _cdnMap
     }
   } catch (e) {
-    console.error(e)
+    console.error("Couldn't parse CDN URLs", e)
   }
 
   let i = 0
@@ -33,7 +33,7 @@ export const formatSolidarityAction = async (record: SolidarityActionAirtableRec
     try {
       action.geography.country.push(countryDataForCode(countryCode))
     } catch (e) {
-      console.error(JSON.stringify(action), e)
+      console.error("Couldn't parse country code", JSON.stringify(action), e)
     }
     i++;
 
@@ -47,7 +47,7 @@ export const formatSolidarityAction = async (record: SolidarityActionAirtableRec
       // Parse and verify the JSON we store in the Airtable
       const { data, error } = openStreetMapReverseGeocodeResponseSchema.safeParse(_data)
       if (error) {
-        console.error(_data, error)
+        console.error("Couldn't parse OSM data", _data, error)
       } else if (data) {
         action.geography.location = data
         solidarityActionBase().update(_action.id, {
@@ -60,7 +60,7 @@ export const formatSolidarityAction = async (record: SolidarityActionAirtableRec
   try {
     return solidarityActionSchema.parse(action)
   } catch (e) {
-    console.error(action, e)
+    console.error("Couldn't parse solidarityAction", action, e)
     throw e
   }
 }
