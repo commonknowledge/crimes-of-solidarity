@@ -1,6 +1,6 @@
 #  [Crimes of Solidarity](https://www.crimesofsolidarity.org/)
 
-This is a new database website documenting crimes of solidarity and humanitarianism. This is a project led by Dr. Lucy Mayblin at the University of Sheffield, UK.
+This is a new database website documenting crimes of solidarity and humanitarianism. This is a project led by [Dr. Lucy Mayblin](https://www.sheffield.ac.uk/socstudies/people/academic-staff/lucy-mayblin) at the University of Sheffield, UK.
 
 Around the world, a growing number of people are subjected to criminal measures for helping irregular migrants, including those who are seeking asylum. Acts as simple as leaving water in the desert, saving someone from drowning in the sea, giving someone a lift to a medical facility, or a bed for the night, lead those offering such assistance open to arrest and imprisonment. While activists keep records of arrests in different countries, and there has been a lot of research in Europe on the criminalisation of solidarity activities, we currently have little understanding of this as a global phenomenon. The Crimes of Solidarity and Humanitarianism database aims to build understanding of criminalisation across borders for research and resistance.
 
