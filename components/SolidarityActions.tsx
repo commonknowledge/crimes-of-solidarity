@@ -394,8 +394,8 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
               </span>
             </a>
           )}
-          {data.fields.Document?.map((doc) => (
-            <DocumentLink doc={doc} key={doc.id} />
+          {data.cdnMap.map(doc => (
+            <DocumentLink key={doc.airtableDocID} {...doc} />
           ))}
         </div>
       </div>
@@ -403,34 +403,36 @@ export function SolidarityActionItem({ data }: { data: SolidarityAction }) {
   );
 }
 
-export function DocumentLink({
-  doc,
-  withPreview,
-}: {
-  doc: Attachment;
-  withPreview?: boolean;
+export function DocumentLink({ filename, filetype, thumbnailURL, thumbnailWidth, thumbnailHeight, downloadURL, withPreview }: {
+  filename: string
+  filetype: string
+  thumbnailURL: string
+  thumbnailWidth: number
+  thumbnailHeight: number
+  downloadURL: string
+  withPreview?: boolean
 }) {
   return (
-    <a href={doc.url} className="block my-1 mr-2">
-      <span className={cx(withPreview && "block")}>
+    <a href={downloadURL} className='block my-1 mr-2'>
+      <span className={cx(withPreview && 'block')}>
         <img src="/images/icon-file.svg" />
         <span className="align-baseline underline text-inherit">
-          {doc.filename}
+          {filename}
         </span>
         &nbsp;
-        <span className="text-gray-500">{doc.type}</span>
+        <span className="text-gray-500">{filetype}</span>
       </span>
       {withPreview && (
-        <div className="inline-block overflow-hidden border border-black rounded-xl mt-4">
+        <div className='inline-block overflow-hidden border border-black rounded-xl mt-4'>
           <Image
-            src={doc.thumbnails.large.url}
-            width={doc.thumbnails.large.width}
-            height={doc.thumbnails.large.height}
+            src={thumbnailURL}
+            width={thumbnailWidth}
+            height={thumbnailHeight}
           />
         </div>
       )}
     </a>
-  );
+  )
 }
 
 export function ActionMetadata({ data }: { data: SolidarityAction }) {
@@ -454,7 +456,7 @@ export function ActionMetadata({ data }: { data: SolidarityAction }) {
       ))}
       {data.fields?.Type?.map((c, i) => (
         <span className="block pr-3 font-mono text-darkGrey" key={c}>
-          {data.fields.TypeName}
+          {data.fields.TypeName[i]}
         </span>
       ))}
     </div>
@@ -466,9 +468,8 @@ export function SolidarityActionCard({
   withContext,
   contextProps,
 }: CardProps) {
-  const seoTitle = `${format(new Date(data.fields.Date), "dd MMM yyyy")}: ${
-    data.fields.Name
-  }`;
+  const seoTitle = `${format(new Date(data.fields.Date), "dd MMM yyyy")}: ${data.fields.Name
+    }`;
 
   // test if an actual link and not a note about a link
   if (data.fields.Link) {
@@ -518,12 +519,12 @@ export function SolidarityActionCard({
             )}
           </div>
         </div>
-        {data.fields.Document?.length && (
+        {!!data.cdnMap?.length && (
           <div className="p-4 md:px-8 bg-white text-sm">
             <div className="font-semibold pb-2">Attachments</div>
             <div className="grid gap-4">
-              {data.fields.Document.map((doc) => (
-                <DocumentLink key={doc.id} doc={doc} withPreview />
+              {data.cdnMap.map(doc => (
+                <DocumentLink key={doc.airtableDocID} {...doc} withPreview />
               ))}
             </div>
           </div>

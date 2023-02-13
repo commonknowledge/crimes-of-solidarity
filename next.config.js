@@ -6,6 +6,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ['dl.airtable.com'],
+    domains: ['crimesofsolidarity.s3.eu-west-2.amazonaws.com'],
   },
 }

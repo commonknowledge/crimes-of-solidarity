@@ -72,3 +72,18 @@ yarn generateschema
 ## Deployment
 
 This repository auto-deploys to Vercel.
+
+## CDN for public file hosting
+
+AWS S3 is used as a public CDN for Airtable images. Here's how it works:
+
+- A hidden `cdn_urls` column exists on the Solidarity Actions table, which stores data about the publicly viewable URLs. This column should not be edited manually.
+- The `cdn_urls` column is updated through the website's API — the `/api/syncToCDN` endpoint — which will upload Airtable's private attachments to the public CDN and then store the public URLs back in Airtable for serving in the frontend.
+- Syncing is automated. Whenever an Airtable record is updated, a webhook trigger the re-sync. A [Github action](./.github/workflows/refreshWebhook.yml) regularly triggers a [maintenance script](./pages/api/createOrRefreshAirtableWebhook.ts) which establishes or refreshes the Airtable webhook which is responsible for syncing attachment updates.
+- The webhook management script requires an Airtable access token in the env (`AIRTABLE_API_KEY`) configured [via this URL](https://airtable.com/create/tokens/new) as follows:
+    ![](./docs/airtable_access_token_config.png)
+    - The `webhook:manage` in particular is required for webhook management
+    - Three remaining permissions are required for syncing and other data fetching for the rest of the website:
+      - `data.records:read`
+      - `data.records:write`
+      - `schema.bases:read`
