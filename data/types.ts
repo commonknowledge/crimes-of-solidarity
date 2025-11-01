@@ -340,7 +340,7 @@ export interface MenuItem extends BaseRecord {
   fields: {
     label: string;
     url: string;
-    placement: Array<'Header' | 'Footer'>;
+    placement?: Array<'Header' | 'Footer'> | null;
   }
 }
 
