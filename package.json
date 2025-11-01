@@ -2,6 +2,9 @@
   "name": "game-worker-solidarity-project",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "cacheDirectories": [
     "node_modules/",
     ".next/cache/"
