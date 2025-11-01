@@ -104,7 +104,7 @@ export const menuItemSchema = baseRecordSchema.extend({
   fields: z.object({
     label: z.string(),
     url: z.string(),
-    placement: z.array(z.union([z.literal("Header"), z.literal("Footer")])),
+    placement: z.array(z.union([z.literal("Header"), z.literal("Footer")])).optional(),
   }),
 });
 
