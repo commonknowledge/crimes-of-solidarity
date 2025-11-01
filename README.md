@@ -75,7 +75,9 @@ This repository auto-deploys to Vercel.
 
 ## CDN for public file hosting
 
-AWS S3 is used as a public CDN for Airtable images. Here's how it works:
+AWS S3 is used as a public CDN for Airtable images. 
+
+Here's how it works:
 
 - A hidden `cdn_urls` column exists on the Solidarity Actions table, which stores data about the publicly viewable URLs. This column should not be edited manually.
 - The `cdn_urls` column is updated through the website's API — the `/api/syncToCDN` endpoint — which will upload Airtable's private attachments to the public CDN and then store the public URLs back in Airtable for serving in the frontend.
